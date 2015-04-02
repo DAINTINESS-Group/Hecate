@@ -61,5 +61,11 @@ public abstract class Transition {
 		return affectedAtributes;
 	}
 	
+	public String getType(){
+		
+		return type;
+		
+	} 
+	
 	
 }

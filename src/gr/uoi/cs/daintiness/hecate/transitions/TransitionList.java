@@ -35,6 +35,12 @@ public class TransitionList {
 	public Transition get(int index) {
 		return list.get(index);
 	}
+	
+	public ArrayList<Transition> getList(){
+		
+		return list;
+		
+	} 
 
 	/**
 	 * @return the oldVersion
