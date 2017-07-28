@@ -43,7 +43,9 @@
 
 
 ## Authors
-
+v.01, v.02
+* **Ioannis Skoulis**
+v.03
 * **Nikos Koufos**
 * **Thanos Pappas**
 * **Michalis Sotiriou**
