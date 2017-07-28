@@ -14,7 +14,7 @@ public class Attribute implements SqlItem{
 	private boolean isNull;
 	@XmlElement
 	private boolean isKey;
-	private String def;
+	private String defaultOption;
 	private int mode;
 	
 	public Attribute() {
@@ -23,7 +23,7 @@ public class Attribute implements SqlItem{
 		this.type = null;
 		this.isNull = false;
 		this.isKey = false;
-		this.def = null;
+		this.defaultOption = null;
 		this.mode = UNTOUCHED;
 	}
 	
@@ -32,7 +32,7 @@ public class Attribute implements SqlItem{
 		this.type = type;
 		this.isNull = isNull;
 		this.isKey = false;
-		this.def = d;
+		this.defaultOption = d;
 		this.mode = UPDATED;
 	}	
 	
@@ -41,11 +41,11 @@ public class Attribute implements SqlItem{
 		this.type = type;
 		this.isNull = false;
 		this.isKey = false;
-		this.def = null;
+		this.defaultOption = null;
 		this.mode = UPDATED;
 	}
 	
-	// --Getters--
+
 	public Table getTable() {
 		return this.table;
 	}
@@ -63,7 +63,7 @@ public class Attribute implements SqlItem{
 	}
 	
 	public String getDefault() {
-		return this.def;
+		return this.defaultOption;
 	}
 	
 	public boolean isKey() {

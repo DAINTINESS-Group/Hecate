@@ -3,17 +3,15 @@
  */
 package gr.uoi.cs.daintiness.hecate.gui.swing;
 
-import gr.uoi.cs.daintiness.hecate.diff.Delta;
-import gr.uoi.cs.daintiness.hecate.diff.DiffResult;
-import gr.uoi.cs.daintiness.hecate.io.Export;
-import gr.uoi.cs.daintiness.hecate.parser.HecateParser;
-import gr.uoi.cs.daintiness.hecate.sql.Schema;
-import gr.uoi.cs.daintiness.hecate.sql.Table;
-import gr.uoi.cs.daintiness.hecate.transitions.Transitions;
+import gr.uoi.cs.daintiness.hecate.hecatemanager.ApiExecutioner;
+
+import gr.uoi.cs.daintiness.hecate.metrics.Metrics;
+
 
 import java.io.File;
-import java.util.Map.Entry;
 
+
+import javax.swing.JOptionPane;
 import javax.swing.ProgressMonitor;
 import javax.swing.SwingWorker;
 
@@ -21,94 +19,101 @@ import javax.swing.SwingWorker;
  * @author iskoulis
  *
  */
-public class DiffWorker extends SwingWorker<DiffResult, Integer> {
+public class DiffWorker extends SwingWorker<Void, Void> {
 	
-	MainPanel mp;
-	ProgressMonitor pm;
-	File oldFile = null;
-	File newFile = null;
-	File folder = null;
-	Schema oldSchema;
-	Schema newSchema;
+	private MainPanel mp;
+	private ProgressMonitor pm;
+	private File oldFile = null;
+	private File newFile = null;
+	private File folder = null;
+	
+	private File directory;
+	private boolean folderDiffOn;
+	
+	
+	private ApiExecutioner apiExecutioner;
+	
 	
 	public DiffWorker(MainPanel mp,
 			          File oldFile, File newFile) {
 		this.mp = mp;
 		this.oldFile = oldFile;
 		this.newFile = newFile;
+		folderDiffOn = false;
+		
+		apiExecutioner = new ApiExecutioner(null);
 	}
 	
 	public DiffWorker(MainPanel mp, File folder) {
 		this.mp = mp;
 		this.folder = folder;
+		
+		System.out.println(this.folder.getAbsolutePath());
+	
+		apiExecutioner = new ApiExecutioner(this.folder.getAbsolutePath());
 	}
 
 	@Override
-	protected DiffResult doInBackground() throws Exception {
+	protected Void doInBackground() throws Exception {
+		
 		pm = new ProgressMonitor(mp.getRootPane(), "Working...", null, 0, 100);
-		DiffResult res = new DiffResult();
+	
+
 		if (oldFile != null && newFile != null) {
-			pm.setMaximum(3);
-			oldSchema = HecateParser.parse(oldFile.getAbsolutePath());
-			pm.setProgress(1);
-			newSchema = HecateParser.parse(newFile.getAbsolutePath());
-			pm.setProgress(2);
-			res = Delta.minus(oldSchema, newSchema);
-			pm.setProgress(3);
-			oldFile = null;
-			newFile = null;
+			apiExecutioner.handleSchemaPairs(oldFile,newFile);
 		} else if (folder != null){
-			res.clear();
-			Transitions trs = new Transitions();
+			folderDiffOn = true;
+			
 			String[] list = folder.list();
 			pm.setMaximum(list.length);
-			String path = folder.getAbsolutePath();
+			String path = folder.getAbsolutePath();			
 			java.util.Arrays.sort(list);
 			
-			Export.initMetrics(path);
 			for (int i = 0; i < list.length-1; i++) {
 				pm.setNote("Parsing " + list[i]);
-				Schema schema = HecateParser.parse(path + File.separator + list[i]);
-				for (Entry<String, Table> e : schema.getTables().entrySet()) {
-					String tname = e.getKey();
-					int attrs = e.getValue().getSize();
-					res.tInfo.addTable(tname, i, attrs);
-				}
+				
+				
+				apiExecutioner.setOldSchema(path + File.separator + list[i], i);
+				
 				pm.setNote("Parsing " + list[i+1]);
-				Schema schema2 = HecateParser.parse(path + File.separator + list[i+1]);
-				if (i == list.length-2) {
-					for (Entry<String, Table> e : schema2.getTables().entrySet()) {
-						String tname = e.getKey();
-						int attrs = e.getValue().getSize();
-						res.tInfo.addTable(tname, i+1, attrs);
-					}
-				}
+				
+				apiExecutioner.setNewSchema(path + File.separator + list[i+1], i, list);
+				
 				pm.setNote(list[i] + "-" + list[i+1]);
-				res = Delta.minus(schema, schema2);
-				trs.add(res.tl);
-				Export.metrics(res, path);
-				pm.setProgress(i+1);
+				
+				apiExecutioner.getDifference();
+				apiExecutioner.exportMetrics();
+				pm.setProgress(i+1);	
 			}
-			try {
-				Export.tables(path, res.met.getNumRevisions()+1, res.tInfo);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			Export.xml(trs, path);
-			oldSchema = HecateParser.parse(path + File.separator + list[0]);
-			newSchema = HecateParser.parse(path + File.separator + list[list.length-1]);
-			res = Delta.minus(oldSchema, newSchema);
+			
+			apiExecutioner.exportFiles(path, list);
+			
+
+			String parent = (new File(path)).getParent();
+			directory = new File(parent + File.separator + "results");
+			
 			folder = null;
 		}
-		return res;
+		return null;
 	}
-
+	
+	public Metrics getMetrics() {
+		return apiExecutioner.getMetrics();
+	}
+	
 	@Override
 	protected void done() {
-		mp.drawSchema(oldSchema, "old");
-		mp.drawSchema(newSchema, "new");
+		
+		mp.drawSchema(apiExecutioner.getOldSchema(), "old");
+		mp.drawSchema(apiExecutioner.getNewSchema(), "new");
 		pm.setProgress(pm.getMaximum());
+		
+		if(folderDiffOn){
+			JOptionPane.showConfirmDialog(null,
+	                "Metrics were exported to:" +directory.getPath() ,
+	                "Metrics were saved", JOptionPane.DEFAULT_OPTION);
+		}
+		
 		super.done();
 	}
 }

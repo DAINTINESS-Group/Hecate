@@ -1,10 +1,13 @@
-package gr.uoi.cs.daintiness.hecate.parser;
+package gr.uoi.cs.daintiness.hecate.testsDeprecated;
+
+import gr.uoi.cs.daintiness.hecate.parser.ParserFactory;
+import gr.uoi.cs.daintiness.hecate.parser.SqlInputParser;
 
 import java.io.File;
 
-public class Testing {
+public class ParserTesting {
 
-	public Testing() {}
+	public ParserTesting() {}
 
 	public static void main(String[] args) {
 
@@ -33,10 +36,11 @@ public class Testing {
 		
 		String[] list = dir.list();
 		java.util.Arrays.sort(list);
-		
+		ParserFactory parserFactory = new ParserFactory();
+		SqlInputParser parser = parserFactory.createHecateParser();
 		for (int i = 0; i < list.length; i++)  {
 			System.out.println(list[i]);
-			HecateParser.parse(path + File.separator + list[i]);
+			parser.parse(path + File.separator + list[i]);
 		}
 		
 //		System.out.println(list[0]);

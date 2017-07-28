@@ -5,6 +5,7 @@ import gr.uoi.cs.daintiness.hecate.Hecate;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -15,32 +16,19 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 
-/**
- * A dialog displaying Hecates information
- * @author giskou
- *
- */
-@SuppressWarnings("serial")
-public class AboutDialog extends JDialog {
-	
+public class ManualDialog extends JDialog{
 	private JLabel name;
-	private JLabel author;
-	private JLabel mail;
+	private JLabel manualText;
 	private JButton close;
 	private ImageIcon hecateIcon;
 
-	public AboutDialog() {
+	public ManualDialog(){
 		initialize();
-
 		setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
-
 		add(Box.createRigidArea(new Dimension(0, 15)));
-
-		name = new JLabel("      Hecate  0.3     ");
-		name.setFont(new Font("Serif", Font.BOLD, 15));
-		name.setAlignmentX(CENTER_ALIGNMENT);
-		add(name);
 		
+		addName();
+				
 		add(Box.createRigidArea(new Dimension(0, 15)));
 		
 		hecateIcon = new ImageIcon(Hecate.class.getResource("art/icon.png"));
@@ -50,22 +38,36 @@ public class AboutDialog extends JDialog {
 		
 		add(Box.createRigidArea(new Dimension(0, 15)));
 		
-		author = new JLabel("Originally constructed by Ioannis Skoulis");
-		author.setFont(new Font("Serif", Font.PLAIN, 13));
-		author.setAlignmentX(CENTER_ALIGNMENT);
-		add(author);
-		author = new JLabel("Refactored by Athanasios Pappas, Nikolaos Koufos, Michail Sotiriou");
-		author.setFont(new Font("Serif", Font.PLAIN, 13));
-		author.setAlignmentX(CENTER_ALIGNMENT);
-		add(author);
-
-//		mail = new JLabel("        iskoulis@cs.uoi.gr        ");
-//		mail.setFont(new Font("Serif", Font.PLAIN, 12));
-//		mail.setAlignmentX(CENTER_ALIGNMENT);
-//		add(mail);
+		addManualText();
 
 		add(Box.createRigidArea(new Dimension(0, 15)));
-
+		
+		addCloseButton();
+		
+		
+		add(Box.createRigidArea(new Dimension(0, 15)));
+		
+		draw();
+	}
+	
+	private void addName(){
+		name = new JLabel("      Hecate  0.3     ");
+		name.setFont(new Font("Serif", Font.BOLD, 15));
+		name.setAlignmentX(CENTER_ALIGNMENT);
+		add(name);
+	}
+	
+	private void addManualText(){
+		manualText = new JLabel("<html><br>"
+            + "<font color=#FF0000><b>&nbsp;&nbsp;&nbsp;&nbsp; Red color:</b></font> Deletion<br>"
+			+ "<font color=#6dce0c><b>&nbsp;&nbsp;&nbsp;&nbsp; Green color:</b></font> Insertion <br>"
+			+ "<font color=#f7e011><b>&nbsp;&nbsp;&nbsp;&nbsp; Yellow color:</b></font> Update <br>");
+		manualText.setFont(new Font("Serif", Font.PLAIN, 13));
+		manualText.setAlignmentX(CENTER_ALIGNMENT);
+		add(manualText);
+	}
+	
+	private void addCloseButton(){
 		close = new JButton("Close");
 		close.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
@@ -74,14 +76,10 @@ public class AboutDialog extends JDialog {
 		});
 		close.setAlignmentX(CENTER_ALIGNMENT);
 		add(close);
-		
-		add(Box.createRigidArea(new Dimension(0, 15)));
-		
-		draw();
 	}
 	
 	private void initialize() {
-		setTitle("About");
+		setTitle("Manual");
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
@@ -96,4 +94,3 @@ public class AboutDialog extends JDialog {
 		            size.height/2 - getHeight()/2);
 	}
 }
-

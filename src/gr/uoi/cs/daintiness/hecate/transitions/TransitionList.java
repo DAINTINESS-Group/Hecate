@@ -14,25 +14,25 @@ public class TransitionList {
 	@XmlAttribute(name="newVersion")
 	private String newVersion;
 	@XmlAnyElement(lax=true)
-	private ArrayList<Transition> list;
+	private ArrayList<AtomicChange> list;
 	
 	public TransitionList() {
 		this.oldVersion = "not set";
 		this.newVersion = "not set";
-		list = new ArrayList<Transition>();
+		list = new ArrayList<AtomicChange>();
 	}
 	
 	public TransitionList(String oldVersion, String newVersion) {
 		this.oldVersion = oldVersion;
 		this.newVersion = newVersion;
-		list = new ArrayList<Transition>();
+		list = new ArrayList<AtomicChange>();
 	}
 	
-	public void add(Transition in) {
+	public void add(AtomicChange in) {
 		this.list.add(in);
 	}
 	
-	public Transition get(int index) {
+	public AtomicChange get(int index) {
 		return list.get(index);
 	}
 
@@ -53,5 +53,9 @@ public class TransitionList {
 	public void setVersionNames(String oldVersion, String newVersion) {
 		this.oldVersion = oldVersion;
 		this.newVersion = newVersion;
+	}
+	
+	public ArrayList<AtomicChange> getTransition(){
+		return list;		
 	}
 }
