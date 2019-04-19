@@ -89,7 +89,7 @@ public class Testing {
 			Unmarshaller u = jaxbContext.createUnmarshaller();
 			t = (Transitions)u.unmarshal( inputStream );
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			System.err.println("[Testing.test()] Failed unmarshalling jaxb");
 			e.printStackTrace();
 		}
 		System.out.println(t);
