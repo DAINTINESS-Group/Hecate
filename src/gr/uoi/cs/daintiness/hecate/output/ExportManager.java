@@ -3,6 +3,8 @@ package gr.uoi.cs.daintiness.hecate.output;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+
 
 import gr.uoi.cs.daintiness.hecate.diff.DiffResult;
 import gr.uoi.cs.daintiness.hecate.metrics.tables.MetricsOverVersion;
@@ -24,14 +26,14 @@ public class ExportManager implements FileExporter{
 		return false;
 	}
 	
-	public ExportManager(String path){
-		this.path = path;
-		System.out.println(path);
+	public ExportManager(String aPath){
+		this.path = aPath;
 		if(!isPathNull()){
 			tableMetricsExporters = new ArrayList<TableMetricsExporter>();
 			this.path = this.getDirectory();
 			metricsExporter = new MetricsExporter(this.path);
 			transitionChangesExporters = new ArrayList<TransitionChangesExporter>();
+			System.out.println("[ExportManager constructor] Working dir is: " + this.path + "\n");
 		}
 		
 	}
@@ -40,10 +42,17 @@ public class ExportManager implements FileExporter{
 		if(!isPathNull()){
 			TableMetricsExporterFactory exportFactory = new TableMetricsExporterFactory();
 			tableMetricsExporters = exportFactory.createExporters(path,versions);
+
+			//TODO MUST find a way to clear the TablesInfo each time we change a data set, without closing and re-running Hecate from scratch!
+			
+			ArrayList<String> tableNamesSorted = new ArrayList<String>();
+			tableNamesSorted.addAll(ti.getTables());
+			Collections.sort(tableNamesSorted);	
 			
 			for(TableMetricsExporter tableMetricsExporter: tableMetricsExporters){
 				tableMetricsExporter.writeHeader(versions);
-				for (String t : ti.getTables()){
+				//for (String t : ti.getTables()){
+				for (String t : tableNamesSorted){
 					tableMetricsExporter.writeText(t + ";");
 					
 					MetricsOverVersion metricsOverVersion = ti.getTableMetrics(t);
@@ -57,7 +66,8 @@ public class ExportManager implements FileExporter{
 					tableMetricsExporter.writeLastColumn();				
 				}
 				tableMetricsExporter.closeFile();
-			}
+			}//end for
+			tableNamesSorted.clear();
 		}
 
 	}

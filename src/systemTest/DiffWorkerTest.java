@@ -13,6 +13,7 @@ import gr.uoi.cs.daintiness.hecate.gui.swing.DiffWorker;
 public class DiffWorkerTest {
 
 	private static DiffWorker task;
+	private static String referenceDir = "resources/Egee/referenceResults_v0.3.1";
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -41,7 +42,7 @@ public class DiffWorkerTest {
 			
 			String [] resultFiles = resultDir.list();
 			java.util.Arrays.sort(resultFiles);
-			String refResultDirPath = "resources/Egee/referenceResults_v0.3";
+			String refResultDirPath = referenceDir;
 			File refResultDir = new File(refResultDirPath);
 			String[] refResultFiles = refResultDir.list();
 			java.util.Arrays.sort(refResultFiles);
@@ -58,6 +59,8 @@ public class DiffWorkerTest {
 				
 				pairwiseFileComparison = Boolean.logicalAnd(pairwiseFileComparison, localComparison);
 			}
+			
+			//TODO: Fix that the metrics.csv is outputed WITHOUT a header!
 			assertEquals(pairwiseFileComparison, true);
 			
 		} catch (Exception e) {

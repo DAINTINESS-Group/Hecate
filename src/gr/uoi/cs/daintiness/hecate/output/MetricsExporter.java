@@ -31,8 +31,10 @@ public class MetricsExporter {
 					+ ";tIns;tDel;aIns;aDel;aTypeAlt;keyAlt;aTabIns;aTabDel\n");
 			metrics.close();
 		} catch (IOException e) {
+			System.out.println("Cannot write header for " + filePath);
 			e.printStackTrace();
 		}
+		System.out.println("---initMetrics---");
 
 	}
 
