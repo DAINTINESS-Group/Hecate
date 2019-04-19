@@ -1,3 +1,4 @@
+trID;time;oldVer;newVer;#oldT;#newT;#oldA;#newA;tIns;tDel;aIns;aDel;aTypeAlt;keyAlt;aTabIns;aTabDel
 1;rev_1.02;rev_1.01.sql;rev_1.02.sql;6;6;34;39;0;0;6;1;0;0;0;0
 2;rev_1.03;rev_1.02.sql;rev_1.03.sql;6;4;39;34;0;2;6;1;4;0;0;10
 3;rev_1.04;rev_1.03.sql;rev_1.04.sql;4;4;34;35;0;0;1;0;0;0;0;0

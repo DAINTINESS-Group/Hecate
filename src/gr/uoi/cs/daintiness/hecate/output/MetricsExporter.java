@@ -29,14 +29,14 @@ public class MetricsExporter {
 			metrics = new BufferedWriter(new FileWriter(filePath));
 			metrics.write("trID;time;oldVer;newVer;#oldT;#newT;#oldA;#newA"
 					+ ";tIns;tDel;aIns;aDel;aTypeAlt;keyAlt;aTabIns;aTabDel\n");
+			metrics.flush();
 			metrics.close();
 		} catch (IOException e) {
 			System.out.println("Cannot write header for " + filePath);
 			e.printStackTrace();
 		}
-		System.out.println("---initMetrics---");
 
-	}
+	}//end initMetrics file
 
 	public void exportMetrics(DiffResult res, String path) throws IOException {
 		/*String parrent = (new File(path)).getParent();
@@ -50,6 +50,7 @@ public class MetricsExporter {
 		BufferedWriter metrics = new BufferedWriter(fileWriter);
 		String name = res.getMetrics().getVersionNames()[1];
 		String time = name.substring(0, name.length() - 4);
+		
 		metrics.write(res.getMetrics().getNumRevisions() + ";" + // trID
 				time + ";" + // time
 				res.getMetrics().getVersionNames()[0] + ";" + // oldVer

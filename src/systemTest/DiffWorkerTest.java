@@ -17,8 +17,21 @@ public class DiffWorkerTest {
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		//kill old results
+		String resultDirPath = "resources/Egee/results";
+		File resultDir = new File(resultDirPath);
+		String[] oldResultFiles = resultDir.list();
+		int countDeleted = 0;
+		for(int i=0;i<oldResultFiles.length;i++) {
+			File toDel = new File(resultDirPath + "/" + oldResultFiles[i]);
+			if (toDel.delete()) countDeleted++;
+		}
+		System.out.println("Cleanup of " + countDeleted + " old result files complete.");
+
+		
 		String path = "resources/Egee/schemata";
 		File directory = new File(path);
+
 		task = new DiffWorker(null, directory);
 	
 	}
@@ -29,14 +42,6 @@ public class DiffWorkerTest {
 			String resultDirPath = "resources/Egee/results";
 			File resultDir = new File(resultDirPath);
 
-			//kill old results
-			String[] oldResultFiles = resultDir.list();
-			int countDeleted = 0;
-			for(int i=0;i<oldResultFiles.length;i++) {
-				File toDel = new File(resultDirPath + "/" + oldResultFiles[i]);
-				if (toDel.delete()) countDeleted++;
-			}
-			System.out.println("Cleanup of " + countDeleted + " old result files complete.");
 			
 			task.processFolderInBackground(null);
 			
@@ -59,8 +64,7 @@ public class DiffWorkerTest {
 				
 				pairwiseFileComparison = Boolean.logicalAnd(pairwiseFileComparison, localComparison);
 			}
-			
-			//TODO: Fix that the metrics.csv is outputed WITHOUT a header!
+
 			assertEquals(pairwiseFileComparison, true);
 			
 		} catch (Exception e) {
