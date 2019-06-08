@@ -3,8 +3,8 @@
  */
 package gr.uoi.cs.daintiness.hecate.gui.swing;
 
-import gr.uoi.cs.daintiness.hecate.hecatemanager.ApiExecutioner;
-
+import gr.uoi.cs.daintiness.hecate.hecatemanager.HecateBackEndEngineFactory;
+import gr.uoi.cs.daintiness.hecate.hecatemanager.IHecateBackEndEngine;
 import gr.uoi.cs.daintiness.hecate.metrics.Metrics;
 
 
@@ -25,13 +25,12 @@ public class DiffWorker extends SwingWorker<Void, Void> {
 	private ProgressMonitor progressMonitor;
 	private File oldFile = null;
 	private File newFile = null;
-	private File folder = null;
-	
-	private File directory;
+	private File folderOfSchemaHistory = null;
+	private File folderOfOutputResults;
 	private boolean folderDiffOn;
 	
 	
-	private ApiExecutioner apiExecutioner;
+	private IHecateBackEndEngine apiExecutioner;
 	
 	
 	public DiffWorker(MainPanel mp,
@@ -41,17 +40,20 @@ public class DiffWorker extends SwingWorker<Void, Void> {
 		this.newFile = newFile;
 		folderDiffOn = false;
 		
-		apiExecutioner = new ApiExecutioner(null);
+		HecateBackEndEngineFactory engineFactory = new HecateBackEndEngineFactory(); 
+		apiExecutioner = engineFactory.createApiExecutioner(null);
+		//apiExecutioner = new ApiExecutioner(null);
 	}
 	
 	public DiffWorker(MainPanel mp, File folder) {
 		this.mainPanel = mp;
-		this.folder = folder;
+		this.folderOfSchemaHistory = folder;
 		
-		System.out.println(this.folder.getAbsolutePath());
+		System.out.println(this.folderOfSchemaHistory.getAbsolutePath());
 	
-		apiExecutioner = new ApiExecutioner(this.folder.getAbsolutePath());
-
+		//apiExecutioner = new ApiExecutioner(this.folderOfSchemaHistory.getAbsolutePath());
+		HecateBackEndEngineFactory engineFactory = new HecateBackEndEngineFactory(); 
+		apiExecutioner = engineFactory.createApiExecutioner(this.folderOfSchemaHistory.getAbsolutePath());
 	}
 
 	@Override
@@ -61,15 +63,15 @@ public class DiffWorker extends SwingWorker<Void, Void> {
 	
 
 		if (oldFile != null && newFile != null) {
-			apiExecutioner.handleSchemaPairs(oldFile,newFile);
-		} else if (folder != null){
+			apiExecutioner.handleSchemaPair(oldFile,newFile);
+		} else if (folderOfSchemaHistory != null){
 			processFolderInBackground(progressMonitor);
 		}
 		return null;
 	}
 
 	/**
-	 * This method processes an entire folder with the history of a schema to compute metrics for all this history 
+	 * This method processes an entire folderOfSchemaHistory with the history of a schema to compute metrics for all this history 
 	 */
 	public void processFolderInBackground(ProgressMonitor progressMonitor) {
 
@@ -77,14 +79,13 @@ public class DiffWorker extends SwingWorker<Void, Void> {
 			progressMonitor = new ProgressMonitor(null, "Working...", null, 0, 100);
 		folderDiffOn = true;
 		
-		String[] list = folder.list();
+		String[] list = folderOfSchemaHistory.list();
 		progressMonitor.setMaximum(list.length);
-		String path = folder.getAbsolutePath();			
+		String path = folderOfSchemaHistory.getAbsolutePath();			
 		java.util.Arrays.sort(list);
 		
 		for (int i = 0; i < list.length-1; i++) {
 			progressMonitor.setNote("Parsing " + list[i]);
-			
 			
 			apiExecutioner.setOldSchema(path + File.separator + list[i], i);
 			
@@ -94,18 +95,18 @@ public class DiffWorker extends SwingWorker<Void, Void> {
 			
 			progressMonitor.setNote(list[i] + "-" + list[i+1]);
 			
-			apiExecutioner.getDifference();
-			apiExecutioner.exportMetrics();
+			apiExecutioner.performPairwiseComparison();
+			
 			progressMonitor.setProgress(i+1);	
 		}
 		
-		apiExecutioner.exportFiles(path, list);
+		apiExecutioner.exportOutputFilesAndCleanUp(path, list);
 		
 
 		String parent = (new File(path)).getParent();
-		directory = new File(parent + File.separator + "results");
+		folderOfOutputResults = new File(parent + File.separator + "results");
 		
-		folder = null;
+		folderOfSchemaHistory = null;
 	}
 	
 	public Metrics getMetrics() {
@@ -121,7 +122,7 @@ public class DiffWorker extends SwingWorker<Void, Void> {
 		
 		if(folderDiffOn){
 			JOptionPane.showConfirmDialog(null,
-	                "Metrics were exported to:" +directory.getPath() ,
+	                "Metrics were exported to:" +folderOfOutputResults.getPath() ,
 	                "Metrics were saved", JOptionPane.DEFAULT_OPTION);
 		}
 		

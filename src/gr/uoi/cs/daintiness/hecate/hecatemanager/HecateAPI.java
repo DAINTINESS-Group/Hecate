@@ -4,8 +4,8 @@ import gr.uoi.cs.daintiness.hecate.diff.DiffResult;
 import gr.uoi.cs.daintiness.hecate.sql.Schema;
 import gr.uoi.cs.daintiness.hecate.transitions.Transitions;
 /**
-* The HecateAPI implements the 3 basic use-cases
-* of the system.
+* The HecateAPI implements the 3 basic _internal_ use-cases
+* of the Hecate back-end subsystem.
 *
 * @author  Nikos Koufos, Thanos Pappas, Mihalis Sotiriou
 * @version 1.0
@@ -49,7 +49,7 @@ public interface HecateAPI {
 	   * 
 	   * @param schema1 The original schema.
 	   * @param schema2 The modified version of the original schema.
-	   * @return The schema of the database as a data structure.
+	   * @return a DiffResult including the list of transitions, tables and metrics, after the comparison
 	   */
 	public DiffResult getDifference(Schema schema1, Schema schema2);
 	
