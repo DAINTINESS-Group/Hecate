@@ -25,7 +25,7 @@ public class AboutDialog extends JDialog {
 	
 	private JLabel name;
 	private JLabel author;
-	private JLabel mail;
+	//private JLabel mail;
 	private JButton close;
 	private ImageIcon hecateIcon;
 

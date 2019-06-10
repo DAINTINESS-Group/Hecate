@@ -39,6 +39,18 @@ public interface IHecateBackEndEngine {
 
 
 	/**
+	 * This method processes a folder with <i>only</i> SQL DDL files, i.e., the history of the schema
+	 * 
+	 * The method takes the folder as input, compares pairwise the differences between adjacent versions.
+	 * This returns the transitions from one v. to another. 
+	 * Also the method computes stats and saves them in the 'results' folder
+	 *  
+	 * @param folderOfSchemaHistory a File object for the folder containing the history of the schema 
+	 * @return -1 if the File object is null or not a folder; the number of files of the folder, otherwise
+	 */
+	public int handleFolderWithSchemaHistory(File folderOfSchemaHistory);
+	
+	/**
 	 * Returns the old schema of a comparison
 	 * 
 	 * @return The old {@link gr.uoi.cs.daintiness.hecate.sql.Schema} of the a comparison.

@@ -19,11 +19,11 @@ public class ApiExecutioner implements IHecateBackEndEngine {
 	private DiffResult res;
 	private HecateApiFactory hecateApiFactory ;
 
-	public ApiExecutioner(String exportPath){
+	public ApiExecutioner(String absPathOfSchemaHistoryFolder){
 		transitions = new Transitions();
 		res = new DiffResult();
 		hecateApiFactory = new HecateApiFactory();
-		hecateApi = hecateApiFactory.createHecateManager(exportPath);
+		hecateApi = hecateApiFactory.createHecateManager(absPathOfSchemaHistoryFolder);
 	}
 	
 	@Override
@@ -36,6 +36,33 @@ public class ApiExecutioner implements IHecateBackEndEngine {
 		if(res == null)
 			 return -1;
 		return 0;
+	}
+	
+	@Override
+	public int handleFolderWithSchemaHistory(File folderOfSchemaHistory) {
+		if (folderOfSchemaHistory == null)
+			return -1;
+		if (!folderOfSchemaHistory.isDirectory())
+			return -1;
+		
+		String path = folderOfSchemaHistory.getAbsolutePath();			
+		String[] list = folderOfSchemaHistory.list();
+		java.util.Arrays.sort(list);
+		
+		for (int i = 0; i < list.length-1; i++) {
+			System.out.println("Parsing " + list[i] + " vs " + list[i+1]);
+			
+			this.setOldSchema(path + File.separator + list[i], i);
+			this.setNewSchema(path + File.separator + list[i+1], i, list);
+			this.performPairwiseComparison();	
+		}
+		
+		this.exportOutputFilesAndCleanUp(path, list);
+
+		//String parent = (new File(path)).getParent();
+		//File folderOfOutputResults = new File(parent + File.separator + "results");
+		//folderOfSchemaHistory = null;
+		return list.length;
 	}
 	
 	@Override

@@ -21,7 +21,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
 
 import org.antlr.v4.runtime.RecognitionException;
 
-import com.sun.javafx.tk.Toolkit.Task;
+//import com.sun.javafx.tk.Toolkit.Task;
 
 /**
  * The main window of Hecate

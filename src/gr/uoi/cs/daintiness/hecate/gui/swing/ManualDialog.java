@@ -5,7 +5,7 @@ import gr.uoi.cs.daintiness.hecate.Hecate;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
-import java.awt.Dialog.ModalityType;
+//import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -17,6 +17,10 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 
 public class ManualDialog extends JDialog{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JLabel name;
 	private JLabel manualText;
 	private JButton close;
