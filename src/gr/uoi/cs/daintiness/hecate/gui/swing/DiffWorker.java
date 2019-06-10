@@ -42,7 +42,7 @@ public class DiffWorker extends SwingWorker<Void, Void> {
 		
 		HecateBackEndEngineFactory engineFactory = new HecateBackEndEngineFactory(); 
 		apiExecutioner = engineFactory.createApiExecutioner(null);
-		//apiExecutioner = new ApiExecutioner(null);
+		//apiExecutioner = new HecateBackEndEngine(null);
 	}
 	
 	public DiffWorker(MainPanel mp, File folder) {
@@ -51,7 +51,7 @@ public class DiffWorker extends SwingWorker<Void, Void> {
 		
 		System.out.println(this.folderOfSchemaHistory.getAbsolutePath());
 	
-		//apiExecutioner = new ApiExecutioner(this.folderOfSchemaHistory.getAbsolutePath());
+		//apiExecutioner = new HecateBackEndEngine(this.folderOfSchemaHistory.getAbsolutePath());
 		HecateBackEndEngineFactory engineFactory = new HecateBackEndEngineFactory(); 
 		apiExecutioner = engineFactory.createApiExecutioner(this.folderOfSchemaHistory.getAbsolutePath());
 	}

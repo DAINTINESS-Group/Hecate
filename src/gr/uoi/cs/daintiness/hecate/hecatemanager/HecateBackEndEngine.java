@@ -10,7 +10,7 @@ import java.io.File;
 import java.util.Map.Entry;
 
 
-public class ApiExecutioner implements IHecateBackEndEngine {
+public class HecateBackEndEngine implements IHecateBackEndEngine {
 
 	private Schema oldSchema;
 	private Schema newSchema;
@@ -19,7 +19,7 @@ public class ApiExecutioner implements IHecateBackEndEngine {
 	private DiffResult res;
 	private HecateApiFactory hecateApiFactory ;
 
-	public ApiExecutioner(String absPathOfSchemaHistoryFolder){
+	public HecateBackEndEngine(String absPathOfSchemaHistoryFolder){
 		transitions = new Transitions();
 		res = new DiffResult();
 		hecateApiFactory = new HecateApiFactory();

@@ -18,8 +18,8 @@ import gr.uoi.cs.daintiness.hecate.sql.Schema;
  * 
  * TODO: consider splitting this iface. 
  * <b>Probably make a simple interface with a couple of core calls, and specialize it with the details</b>
- * Too many methods are basically related to the ApiExecutioner implementation, 
- * and practically they populate the private members of the ApiExecutioner class. This is why they return void.
+ * Too many methods are basically related to the HecateBackEndEngine implementation, 
+ * and practically they populate the private members of the HecateBackEndEngine class. This is why they return void.
  * Cannot remove them now, because they are called at the diff worker with the "informed" ProgressMonitor wrt internal steps.
  * 
  * @author	pvassil

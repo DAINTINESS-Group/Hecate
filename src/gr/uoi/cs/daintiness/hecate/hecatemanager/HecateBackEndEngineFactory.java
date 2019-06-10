@@ -13,7 +13,7 @@ package gr.uoi.cs.daintiness.hecate.hecatemanager;
 public class HecateBackEndEngineFactory {
 	
 	/**
-	 * Creates a materialization of IHecateBackEndEngine, materialized as an ApiExecutioner
+	 * Creates a materialization of IHecateBackEndEngine, materialized as an HecateBackEndEngine
 	 * 
 	 * Keep in mind:
 	 * <ul>
@@ -22,9 +22,9 @@ public class HecateBackEndEngineFactory {
 	 * <li> The absPathOfSchemaHistoryFolder can be null without a problem (@see the case of a simple comparison of two schemata in gr.uoi.cs.daintiness.hecate.gui.swing.DiffWorker)     
 	 * </ul>
 	 * @param absPathOfSchemaHistoryFolder the abs path
-	 * @return an IHecateBackEndEngine materialized as an ApiExecutioner
+	 * @return an IHecateBackEndEngine materialized as an HecateBackEndEngine
 	 */
 	public IHecateBackEndEngine createApiExecutioner(String absPathOfSchemaHistoryFolder) {
-		return new ApiExecutioner(absPathOfSchemaHistoryFolder);
+		return new HecateBackEndEngine(absPathOfSchemaHistoryFolder);
 	}
 }
