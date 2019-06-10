@@ -1,55 +1,45 @@
-# API Reference
+# Hecate
 
- The HecateAPI implements the 3 basic use-cases of the system.
+Hecate is a tool to extract the history of relational database schema.
 
-### public Schema parse(String path);
+The input needed is a folder with the snapshots of the DDL files that include the <code>CREATE TABLE</code> statements of the databases.
+The output is the extraction of transitions from one snapshot ("version") to its next, along with statistics on the types of changes.
+ 
+## Usage
+Use the jar's of the <code>target</code> folder. Specifically:
+* **HecateRunable** is the jar that executes the <code>Hecate.java</code> with the GUI
+
+	* You can either compare two SQL files, or, 
+	* Extract the history of an entire folder 9and see the metrics too)
 	
-	   This method implements the parsing process. It receives 
-	   as input the path of a schema file and extracts 
-	   the needed information.
-	   
-	   @param path The path of the SQL data definition file.
-	   @return The schema of the database as a data structure.
-	
-### public void export(DiffResult diffResult, Transitions transitions, String operation);
-	
-	   This method implements the export process. It can be 
-	   which extracts and stores the various tables and 
-	   transitions information on different files.
-	    
-	   @param diffResult Data structure that stores all the information
-	   of a difference between 2 schemas
-	   @param transitions Data structure that stores a list of transitions.
-	   @param operation One of the following:
-	   
-	   metrics: save metrics
-	   tables: save tables info
-	   ransitions: save transitions information
-	    
-	
-### public DiffResult getDifference(Schema schema1, Schema schema2);
-	
-	   This function performs the main algorithm for
-	   finding the differences between two schemas. 
-	   The algorithm is a modification of	the SortMergeJoin 
-	   algorithm found at DBMS's for joining two tables.
-	   
-	   @param schema1 The original schema.
-	   @param schema2 The modified version of the original schema.
-	   @return The schema of the database as a data structure.
-	
-	
-	
+* **HecateFolderProcessing** is a jar for parsing an entire folder from the command line, without the GUI
+
+	 * Assume you have the project <code>PRJ</code> its should contain a folder <code>PRJ/schemata</code> with the schema history.	 
+	 * You should pass the <code>PRJ/schemata</code> as the parameter needed at args[0] 
+  	
+## License
+See the [copyright](copyright.md) file.	
 
 
-## Authors
+## Credits and history
 
-### v.01, v.02
+**v.03 [2017]**
 
-* **Ioannis Skoulis**
+Gang of 3 refactors Hecate with cleanups and restructuring (esp. metrics)
+* *Nikos Koufos*
+* *Thanos Pappas*
+* *Michalis Sotiriou*
 
-### v.03
+**v.01, v.02 [2013]**
+* *Ioannis Skoulis* creates the first version of Hecate. 
 
-* **Nikos Koufos**
-* **Thanos Pappas**
-* **Michalis Sotiriou**
+
+## ToDo
+
+Refactorings and improvements
+- [ ] Refactor the IHecateBackEndEngine interface. Too inclusive, to allow the DiffWorker of the GUI to incrementally report on its progress. Extract a small, tight mama interface (mainly for folder processing) and keep the current one for the GUI
+- [ ] Once this is done, consider merging intermediate steps in the GUI, to restrict the necessary method calls  
+
+Extensions
+- [ ] More stats as metrics
+- [ ] Detect renamings as a first class citizen (SMO) operator
