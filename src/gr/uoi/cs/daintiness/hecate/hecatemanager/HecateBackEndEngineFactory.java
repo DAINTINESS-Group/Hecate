@@ -7,7 +7,7 @@ package gr.uoi.cs.daintiness.hecate.hecatemanager;
  * A factory for the IHecateBackEndEngineFactory
  * 
  * @author pvassil
- * @version 1.0
+ * @version 0.4
  * @since   2019-06-08  
  */
 public class HecateBackEndEngineFactory {

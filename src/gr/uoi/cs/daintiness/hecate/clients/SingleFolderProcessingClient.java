@@ -12,7 +12,8 @@ import gr.uoi.cs.daintiness.hecate.hecatemanager.IHecateBackEndEngine;
  * A simple client to process a folder.
  * 
  * @author pvassil
- * @since v.1.0
+ * @since 2019-06-10
+ * @version v.0.4
  */
 public class SingleFolderProcessingClient {
 

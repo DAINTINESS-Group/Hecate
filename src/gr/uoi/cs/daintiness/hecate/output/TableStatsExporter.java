@@ -23,7 +23,7 @@ public class TableStatsExporter extends TableMetricsExporter{
 			writeText(metricsOverVersion.getLife() + ";");
 			writeText(metricsOverVersion.getBirth() + ";");
 
-			writeText((metricsOverVersion.getDeath()==versions-1 ? "-" : metricsOverVersion.getDeath())
+			writeText((metricsOverVersion.getLastKnownVersion()==versions-1 ? "-" : metricsOverVersion.getLastKnownVersion())
 				+ ";");
 	
 		}
@@ -36,7 +36,7 @@ public class TableStatsExporter extends TableMetricsExporter{
 		
 		super.writeText(mov.getTotalChanges().getTotal() + ";");
 		super.writeText(mov.getBirthSize() + ";");
-		super.writeText(mov.getDeathSize() + ";");
+		super.writeText(mov.getLastKnownVersionSize() + ";");
 		super.writeText(Float.toString((sumSize/(float)versionsAlive)));
 		super.writeText("\n");
 		versionsAlive = 0;

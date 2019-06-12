@@ -8,7 +8,7 @@ import gr.uoi.cs.daintiness.hecate.transitions.Transitions;
 * of the Hecate back-end subsystem.
 *
 * @author  Nikos Koufos, Thanos Pappas, Mihalis Sotiriou
-* @version 1.0
+* @version 0.3
 * @since   2017-05-20 
 */
 

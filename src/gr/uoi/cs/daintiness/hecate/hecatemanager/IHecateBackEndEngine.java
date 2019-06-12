@@ -23,7 +23,7 @@ import gr.uoi.cs.daintiness.hecate.sql.Schema;
  * Cannot remove them now, because they are called at the diff worker with the "informed" ProgressMonitor wrt internal steps.
  * 
  * @author	pvassil
- * @version 1.1
+ * @version 0.4
  * @since   2019-06-08 
  */
 public interface IHecateBackEndEngine {
