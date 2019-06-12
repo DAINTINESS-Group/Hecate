@@ -1,4 +1,4 @@
-package systemTest.v_0_3_1;
+package systemTest.v_0_4;
 
 import static org.junit.Assert.*;
 
@@ -13,7 +13,7 @@ import gr.uoi.cs.daintiness.hecate.gui.swing.DiffWorker;
 public class DiffWorkerTest {
 
 	private static DiffWorker task;
-	private static String referenceDir = "resources/Egee/referenceResults_v0.3.1";
+	private static String referenceDir = "resources/Egee/referenceResults_v0.4";
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package systemTest.v_0_3_1;
+package systemTest.v_0_4;
 
 import static org.junit.Assert.*;
 
@@ -23,7 +23,7 @@ import java.io.IOException;
 public class HecateBackEndManagerTest {
 
 	private static String inputDirPath = "resources/Atlas/schemata"; 
-	private static String referenceResultPath = "resources/Atlas/referenceResults_v0.3.1";
+	private static String referenceResultPath = "resources/Atlas/referenceResults_v0.4";
 	private static String newResultDirPath = "resources/Atlas/results";
  
 	/**
