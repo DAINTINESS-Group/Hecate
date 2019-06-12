@@ -6,7 +6,7 @@ import gr.uoi.cs.daintiness.hecate.metrics.tables.MetricsOverVersion;
 public class TableDeletionExporter extends TableMetricsExporter{
 
 	public TableDeletionExporter(String path) {
-		super(path, "table_del.csv");
+		super(path, "_perVersion_tables_AttrDel.csv");
 	}
 
 	@Override

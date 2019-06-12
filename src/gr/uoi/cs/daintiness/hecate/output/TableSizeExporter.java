@@ -5,7 +5,7 @@ import gr.uoi.cs.daintiness.hecate.metrics.tables.MetricsOverVersion;
 public class TableSizeExporter extends TableMetricsExporter{
 
 	public TableSizeExporter(String path) {
-		super(path, "tables.csv");
+		super(path, "_perVersion_tables_SchemaSizeInAttr.csv");
 	}
 
 	@Override

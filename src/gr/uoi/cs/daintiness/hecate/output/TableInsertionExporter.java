@@ -8,7 +8,7 @@ public class TableInsertionExporter extends TableMetricsExporter{
 
 	
 	public TableInsertionExporter(String path){
-		super(path, "table_ins.csv");
+		super(path, "_perVersion_tables_AttrIns.csv");
 	}
 	
 	@Override

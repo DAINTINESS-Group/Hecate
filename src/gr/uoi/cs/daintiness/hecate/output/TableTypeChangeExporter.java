@@ -6,7 +6,7 @@ import gr.uoi.cs.daintiness.hecate.metrics.tables.MetricsOverVersion;
 public class TableTypeChangeExporter extends TableMetricsExporter{
 
 	public TableTypeChangeExporter(String path) {
-		super(path, "table_type.csv");
+		super(path, "_perVersion_tables_AttrTypeUpd.csv");
 	}
 
 	@Override
