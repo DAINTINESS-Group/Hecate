@@ -1,0 +1,13 @@
+Table	Duration	Birth	Death	LastKnownVersion	SchemaSize@Birth	SchemaSize@LKV	SchemaSizeAvg	SchemaSizeResizeRatio	SumUpd	CountVwUpd	ATU	UpdRate	AvgUpdVolume	SurvivalClass	ActivityClass	LADClass
+t_agent	1	16	-	16	8	8	8	1	0	0	0	0		20	0	20
+t_channel	17	0	-	16	6	10	9.47	1.67	15	6	0.88	0.35	2.5	20	2	22
+t_channel_acl	10	7	-	16	2	2	2	1	0	0	0	0		20	0	20
+t_channel_vo_share	10	7	-	16	3	3	3	1	0	0	0	0		20	0	20
+t_file	17	0	-	16	9	12	12.18	1.33	20	6	1.18	0.35	3.33	20	2	22
+t_job	17	0	-	16	6	15	12.41	2.5	17	8	1	0.47	2.12	20	2	22
+t_job_log	2	0	1	1	6	6	6	1	0	0	0	0		10	0	10
+t_logical	2	0	1	1	4	4	4	1	0	0	0	0		10	0	10
+t_schema_vers	17	0	-	16	3	3	3	1	0	0	0	0		20	0	20
+t_trace	10	7	-	16	5	5	5	1	2	2	0.2	0.2	1	20	1	21
+t_transfer	10	7	-	16	11	11	11	1	3	3	0.3	0.3	1	20	1	21
+t_vo_acl	3	14	-	16	2	2	2	1	2	1	0.67	0.33	2	20	1	21
