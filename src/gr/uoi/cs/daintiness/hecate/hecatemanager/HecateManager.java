@@ -42,6 +42,9 @@ public class HecateManager implements HecateAPI{
 			exportManager.exportMetrics(diffResult);
 		}
 		else if(operation.equals("tables")){
+			//System.out.println("HecateManager#export(): tablesInfo #tables " + diffResult.getTableInfo().getTables().size());
+			//System.out.println("HecateManager#export(): tablesInfo #versions " + diffResult.getTableInfo().getNumVersions());
+
 			exportManager.exportTableMetrics(diffResult.getMetrics().getNumRevisions()+1, 
 					diffResult.getTableInfo());
 		}

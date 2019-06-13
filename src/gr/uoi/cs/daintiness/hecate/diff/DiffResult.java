@@ -33,6 +33,7 @@ public class DiffResult {
 	public void clear() {
 		this.tablesInfo.clear();
 		this.metrics.resetRevisions();
+		this.transitionList.clear();
 	}
 	
 	public TransitionList getTransitionList(){

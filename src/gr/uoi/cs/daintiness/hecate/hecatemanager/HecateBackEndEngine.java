@@ -20,6 +20,8 @@ public class HecateBackEndEngine implements IHecateBackEndEngine {
 	private HecateApiFactory hecateApiFactory ;
 
 	public HecateBackEndEngine(String absPathOfSchemaHistoryFolder){
+		oldSchema = null;
+		newSchema = null;
 		transitions = new Transitions();
 		res = new DiffResult();
 		hecateApiFactory = new HecateApiFactory();
@@ -44,6 +46,13 @@ public class HecateBackEndEngine implements IHecateBackEndEngine {
 			return -1;
 		if (!folderOfSchemaHistory.isDirectory())
 			return -1;
+
+		//Essential to be able to work with multiple projects, one after the other.
+		res.clear();
+		res = new DiffResult();
+//		System.out.println("HecateBckEngine#handleFolder(): tablesInfo #tables " + res.getTableInfo().getTables().size());
+//		System.out.println("HecateBckEngine#handleFolder(): tablesInfo #versions " + res.getTableInfo().getNumVersions());
+
 		
 		String path = folderOfSchemaHistory.getAbsolutePath();			
 		String[] list = folderOfSchemaHistory.list();
@@ -118,6 +127,9 @@ public class HecateBackEndEngine implements IHecateBackEndEngine {
 	 */
 	public void exportOutputFilesAndCleanUp(String path,String[] list){
 		try {
+			//System.out.println("HecateBckEngine#exportOutputNCleanUp(): tablesInfo #tables " + res.getTableInfo().getTables().size());
+			//System.out.println("HecateBckEngine#exportOutputNCleanUp(): tablesInfo #versions " + res.getTableInfo().getNumVersions());
+			
 			hecateApi.export(res,transitions, "tables");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -139,6 +151,10 @@ public class HecateBackEndEngine implements IHecateBackEndEngine {
 	 * Exports metrics for a comparison, after the computation of the diff has taken place
 	 */
 	private void exportMetrics(){
+		//System.out.println("HecateBckEngine#export(): tablesInfo #tables " + res.getTableInfo().getTables().size());
+		//System.out.println("HecateBckEngine#export(): tablesInfo #versions " + res.getTableInfo().getNumVersions());
+
+		
 		hecateApi.export(res,transitions,"metrics");
 	}
 

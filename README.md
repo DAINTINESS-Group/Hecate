@@ -23,6 +23,11 @@ See the [copyright](copyright.md) file.
 
 ## Credits and history
 
+**v.04 [2019-06]**
+
+Refactoring of back-end to have an API, client for cmd-line invocation, new stats for tables.
+* *Panos Vassiliadis* 
+
 **v.03 [2017]**
 
 Gang of 3 refactors Hecate with cleanups and restructuring (esp. metrics)

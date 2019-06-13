@@ -64,5 +64,8 @@ public abstract class TableMetricsExporter {
 		}
 	}
 	
+	protected String getDelimiter() {
+		return ";";
+	}
 	
-}
+}//end class

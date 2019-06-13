@@ -64,17 +64,26 @@ public class HecateBackEndManagerTest {
 
 		Boolean pairwiseFileComparison = true;
 		//by now metrics.csv and tables_stats.csv are generated && are ready for comparison
-		File refFile = new File(referenceResultPath + File.pathSeparator + "metrics.csv");
-		File resFile = new File(newResultDirPath + File.pathSeparator + "metrics.csv");
-		Boolean localComparison = FileUtils.contentEquals(refFile, resFile);
-		System.out.println("Identical metrics.csv?: " + localComparison);
+		File refFile = new File(referenceResultPath + File.separator + "metrics.csv");
+		File resFile = new File(newResultDirPath + File.separator + "metrics.csv");
+		Boolean localComparison = false;
+		localComparison = FileUtils.contentEquals(refFile, resFile);
+		System.out.println("Identical metrics.csv?: " + localComparison + " for:\n\t" + refFile.getAbsolutePath() + "\n\t" +resFile.getAbsolutePath() + "\n");
 		pairwiseFileComparison = Boolean.logicalAnd(pairwiseFileComparison, localComparison);
 
-		refFile = new File(referenceResultPath + File.pathSeparator + "table_stats.csv");
-		resFile = new File(newResultDirPath + File.pathSeparator + "table_stats.csv");
+		refFile = new File(referenceResultPath + File.separator + "table_stats.csv");
+		resFile = new File(newResultDirPath + File.separator + "table_stats.csv");
 		localComparison = FileUtils.contentEquals(refFile, resFile);
-		System.out.println("Identical table_stats.csv?: " + localComparison);
+		System.out.println("Identical table_stats.csv?: " + localComparison + " for:\n\t" + refFile.getAbsolutePath() + "\n\t" +resFile.getAbsolutePath() + "\n");
 		pairwiseFileComparison = Boolean.logicalAnd(pairwiseFileComparison, localComparison);
+
+		
+		refFile = new File(referenceResultPath + File.separator + "tables_DetailedStats.tsv");
+		resFile = new File(newResultDirPath + File.separator + "tables_DetailedStats.tsv");
+		localComparison = FileUtils.contentEquals(refFile, resFile);
+		System.out.println("Identical table_stats.csv?: " + localComparison + " for:\n\t" + refFile.getAbsolutePath() + "\n\t" +resFile.getAbsolutePath() + "\n");
+		pairwiseFileComparison = Boolean.logicalAnd(pairwiseFileComparison, localComparison);
+
 		
 		assertEquals(pairwiseFileComparison, true);
 

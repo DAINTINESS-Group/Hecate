@@ -58,4 +58,10 @@ public class TransitionList {
 	public ArrayList<AtomicChange> getTransition(){
 		return list;		
 	}
+	
+	public void clear() {
+		this.oldVersion = "not set";
+		this.newVersion = "not set";
+		list = null;
+	}
 }

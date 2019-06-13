@@ -12,20 +12,20 @@ import gr.uoi.cs.daintiness.hecate.metrics.tables.TablesInfo;
 import gr.uoi.cs.daintiness.hecate.transitions.Transitions;
 
 public class ExportManager implements FileExporter{
-	
+
 	private ArrayList<TableMetricsExporter> tableMetricsExporters;
 	private MetricsExporter metricsExporter;
 
 	private ArrayList<TransitionChangesExporter> transitionChangesExporters;
 	private String path;
-	
-	
+
+
 	private boolean isPathNull(){
 		if(this.path == null)
 			return true;
 		return false;
 	}
-	
+
 	public ExportManager(String aPath){
 		this.path = aPath;
 		if(!isPathNull()){
@@ -35,26 +35,28 @@ public class ExportManager implements FileExporter{
 			transitionChangesExporters = new ArrayList<TransitionChangesExporter>();
 			System.out.println("[ExportManager constructor] Working dir is: " + this.path + "\n");
 		}
-		
+
 	}
-	
+
 	public void exportTableMetrics(int versions, TablesInfo ti){
 		if(!isPathNull()){
 			TableMetricsExporterFactory exportFactory = new TableMetricsExporterFactory();
 			tableMetricsExporters = exportFactory.createExporters(path,versions);
 
 			//TODO MUST find a way to clear the TablesInfo each time we change a data set, without closing and re-running Hecate from scratch!
-			
+			//2019-06-13: probably did it by calling diff.clear at HacateBackEndEngine#handleFolderWithSchemaHistory
+//System.out.println("exportManager#explortTableMEtrics(): tablesInfo #tables " + ti.getTables().size());
+//System.out.println("exportManager#explortTableMEtrics(): tablesInfo #versions " + ti.getNumVersions());
 			ArrayList<String> tableNamesSorted = new ArrayList<String>();
 			tableNamesSorted.addAll(ti.getTables());
 			Collections.sort(tableNamesSorted);	
-			
+
 			for(TableMetricsExporter tableMetricsExporter: tableMetricsExporters){
 				tableMetricsExporter.writeHeader(versions);
 				//for (String t : ti.getTables()){
 				for (String t : tableNamesSorted){
-					tableMetricsExporter.writeText(t + ";");
-					
+					tableMetricsExporter.writeText(t + tableMetricsExporter.getDelimiter());
+
 					MetricsOverVersion metricsOverVersion = ti.getTableMetrics(t);
 					for (int i = 0; i < versions; i++) {
 						if (metricsOverVersion != null && metricsOverVersion.containsKey(i)) {
@@ -71,9 +73,9 @@ public class ExportManager implements FileExporter{
 		}
 
 	}
-	
-	
-	
+
+
+
 	public void exportMetrics(DiffResult res){
 		if(!isPathNull()){
 			try {
@@ -83,18 +85,18 @@ public class ExportManager implements FileExporter{
 			}
 		}
 	}
-	
+
 	public void exportTransitionChanges(Transitions transitions,DiffResult res){
 		if(!isPathNull()){
 			TransitionChangesExporteFactory transitionsFactory = new TransitionChangesExporteFactory();
 			transitionChangesExporters	= transitionsFactory.createExporters(transitions, path);
-			
+
 			for(TransitionChangesExporter transitionsExporter: transitionChangesExporters){
 				transitionsExporter.exportTransitions();
 			}
 		}
 	}
-	
+
 	public String getDirectory() {
 		String parent = (new File(path)).getParent();
 		File directory = new File(parent + File.separator + "results");
