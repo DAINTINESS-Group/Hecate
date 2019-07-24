@@ -1,6 +1,7 @@
-package gr.uoi.cs.daintiness.hecate.output;
+package gr.uoi.cs.daintiness.hecate.output.heartbeatExports;
 
 import java.util.ArrayList;
+
 import gr.uoi.cs.daintiness.hecate.transitions.Transitions;
 
 public class TransitionChangesExporteFactory {

@@ -1,4 +1,4 @@
-package gr.uoi.cs.daintiness.hecate.output;
+package gr.uoi.cs.daintiness.hecate.output.heartbeatExports;
 
 import gr.uoi.cs.daintiness.hecate.diff.DiffResult;
 
@@ -68,6 +68,8 @@ public class MetricsExporter {
 				res.getMetrics().getAttributeMetrics()[4] + ";" + // aTabIns
 				res.getMetrics().getAttributeMetrics()[5] + "\n" // aTabDel
 		);
+		
+		//System.out.println("@@@@@@@@@@@@@@@@@@@@@@ " + name + " " + time);
 		metrics.close();
 	}
 

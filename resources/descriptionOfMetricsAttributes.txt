@@ -1,0 +1,16 @@
+int trID
+long epochTime
+String oldVer
+String newVer
+numOldTables
+numNewTables
+numOldAttributes
+numNewAttributes
+tablesAdded
+tablesDeleted
+attributesInjected
+attributesEjected
+attributesWithTypeUpd
+attributesAtPrimaryKeyUpd
+attrBornWTableBirth
+attrDeletedWTableDeath

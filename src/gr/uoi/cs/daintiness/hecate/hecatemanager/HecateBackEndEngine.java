@@ -135,6 +135,7 @@ public class HecateBackEndEngine implements IHecateBackEndEngine {
 			e.printStackTrace();
 		}
 		hecateApi.export(res,transitions, "transitions");
+		hecateApi.export(res,transitions, "heartbeat");
 		
 		resetNewNOldSchemasPostFolderExport(path, list);
 		

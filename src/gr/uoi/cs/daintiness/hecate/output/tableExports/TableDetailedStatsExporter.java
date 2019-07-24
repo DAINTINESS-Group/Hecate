@@ -1,4 +1,4 @@
-package gr.uoi.cs.daintiness.hecate.output;
+package gr.uoi.cs.daintiness.hecate.output.tableExports;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -129,7 +129,7 @@ public class TableDetailedStatsExporter extends TableMetricsExporter{
 //	YoB	YoD	birthDate	lastAppearance	durationInDays	durationInYears	durInYearRange
 
 	@Override
-	protected String getDelimiter() {
+	public String getDelimiter() {
 		return _DELIMITER;
 	}
 }

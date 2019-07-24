@@ -1,34 +1,36 @@
-package gr.uoi.cs.daintiness.hecate.output;
+package gr.uoi.cs.daintiness.hecate.output.tableExports;
 
 import gr.uoi.cs.daintiness.hecate.metrics.tables.Changes;
 import gr.uoi.cs.daintiness.hecate.metrics.tables.MetricsOverVersion;
 
+public class TableAllChangesExporter extends TableMetricsExporter{
 
-public class TableInsertionExporter extends TableMetricsExporter{
-
-	
-	public TableInsertionExporter(String path){
-		super(path, "_perVersion_tables_AttrIns.csv");
+	public TableAllChangesExporter(String path) {
+		super(path, "_perVersion_tables_ConcatAllMetrics.csv");
 	}
-	
+
 	@Override
 	public void writeChanges(MetricsOverVersion metricsOverVersion, int i) {
 		Changes c = metricsOverVersion.getChanges(i);
-		writeText(c.getInsertions() + ";");
+		writeText(metricsOverVersion.getSize(i) + "[" + c.toString() +
+		"]" + ";");
 	}
 
 	@Override
 	public void writeLastColumn() {
-		writeText("\n");	
+		writeText("\n");
 	}
 
 	@Override
 	public void writeEmptyCells() {
-		writeText("-;");
+		writeText("0|-|-|-|-;");
+		
 	}
 
 	@Override
 	public void writeHeader(int versions) {
-		writeVersionsLine(versions);
+		super.writeVersionsLine(versions);
+		
 	}
+
 }

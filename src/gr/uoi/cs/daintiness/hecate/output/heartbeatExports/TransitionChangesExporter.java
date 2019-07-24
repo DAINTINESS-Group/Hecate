@@ -1,4 +1,4 @@
-package gr.uoi.cs.daintiness.hecate.output;
+package gr.uoi.cs.daintiness.hecate.output.heartbeatExports;
 
 import java.io.File;
 

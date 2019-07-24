@@ -9,4 +9,5 @@ public interface FileExporter {
 	public void exportTableMetrics(int versions, TablesInfo ti);
 	public void exportMetrics(DiffResult res);
 	public void exportTransitionChanges(Transitions transitions,DiffResult result);
+	public String exportSchemaHeartbeatFile();
 }

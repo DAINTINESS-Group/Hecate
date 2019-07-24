@@ -1,4 +1,4 @@
-package gr.uoi.cs.daintiness.hecate.output;
+package gr.uoi.cs.daintiness.hecate.output.tableExports;
 
 import gr.uoi.cs.daintiness.hecate.metrics.tables.MetricsOverVersion;
 import java.io.BufferedWriter;
@@ -64,7 +64,7 @@ public abstract class TableMetricsExporter {
 		}
 	}
 	
-	protected String getDelimiter() {
+	public String getDelimiter() {
 		return ";";
 	}
 	

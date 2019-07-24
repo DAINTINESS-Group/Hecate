@@ -37,16 +37,7 @@
       <operations public="true" package="true" protected="true" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="gr.uoi.cs.daintiness.hecate.output.MetricsExporter" project="Hecate" 
-    file="/Hecate/src/gr/uoi/cs/daintiness/hecate/output/MetricsExporter.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="913" y="641"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
-      <operations public="true" package="true" protected="true" private="false" static="true"/>    
-    </display>  
-  </class>  
-  <interface id="6" language="java" name="gr.uoi.cs.daintiness.hecate.output.FileExporter" project="Hecate" 
+  <interface id="5" language="java" name="gr.uoi.cs.daintiness.hecate.output.FileExporter" project="Hecate" 
     file="/Hecate/src/gr/uoi/cs/daintiness/hecate/output/FileExporter.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="601" y="466"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -55,7 +46,7 @@
       <operations public="true" package="true" protected="true" private="false" static="true"/>    
     </display>  
   </interface>  
-  <interface id="7" language="java" name="gr.uoi.cs.daintiness.hecate.hecatemanager.IHecateBackEndEngine" 
+  <interface id="6" language="java" name="gr.uoi.cs.daintiness.hecate.hecatemanager.IHecateBackEndEngine" 
     project="Hecate" file="/Hecate/src/gr/uoi/cs/daintiness/hecate/hecatemanager/IHecateBackEndEngine.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="281" y="114"/>    
@@ -65,7 +56,7 @@
       <operations public="true" package="true" protected="true" private="false" static="true"/>    
     </display>  
   </interface>  
-  <class id="8" language="java" name="gr.uoi.cs.daintiness.hecate.hecatemanager.HecateBackEndEngine" project="Hecate" 
+  <class id="7" language="java" name="gr.uoi.cs.daintiness.hecate.hecatemanager.HecateBackEndEngine" project="Hecate" 
     file="/Hecate/src/gr/uoi/cs/daintiness/hecate/hecatemanager/HecateBackEndEngine.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="605" y="216"/>    
@@ -75,62 +66,72 @@
       <operations public="true" package="true" protected="true" private="false" static="true"/>    
     </display>  
   </class>  
-  <realization id="9">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="3"/>  
-  </realization>  
-  <realization id="10">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="6"/>  
-  </realization>  
-  <realization id="11">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="7"/>  
-  </realization>  
-  <association id="12">    
+  <class id="8" language="java" name="gr.uoi.cs.daintiness.hecate.output.heartbeatExports.MetricsExporter" 
+    project="Hecate" file="/Hecate/src/gr/uoi/cs/daintiness/hecate/output/heartbeatExports/MetricsExporter.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="945" y="635"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <association id="9">    
     <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="13" name="exportManager">        
+      <attribute id="10" name="exportManager">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="14" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="15">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="16" name="apiExecutioner">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="17" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="18">    
-    <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="19" name="hecateApi"/>      
-      <multiplicity id="20" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="21">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="22" name="metricsExporter">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="23" minimum="0" maximum="1">        
+      <multiplicity id="11" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <realization id="12">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="3"/>  
+  </realization>  
+  <realization id="13">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
+  <association id="14">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="15" name="apiExecutioner">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="16" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="17">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="18" name="metricsExporter"/>      
+      <multiplicity id="19" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="20">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="21" name="hecateApi">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="22" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="23">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="6"/>  
+  </realization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="false" package="false" protected="false" private="false" static="false"/>    

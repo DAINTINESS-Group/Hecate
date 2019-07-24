@@ -11,24 +11,24 @@ import gr.uoi.cs.daintiness.hecate.sql.Schema;
 import gr.uoi.cs.daintiness.hecate.transitions.Transitions;
 
 public class HecateManager implements HecateAPI{
-	
+
 	private FileExporter exportManager;
 	private SqlInputParser parser;
 	private DifferenceExtractor differenceExtractor;
-			
+
 	public HecateManager(String path) {
-		
+
 		FileExporterFactory fileExporterFactory = new FileExporterFactory();
 		exportManager = fileExporterFactory.createExportManger(path);
-		
+
 		ParserFactory parserFactory = new ParserFactory();
 		parser = parserFactory.createHecateParser();
-		
+
 		DifferenceExtractorFactory diffExtractor = new DifferenceExtractorFactory();
 		differenceExtractor = diffExtractor.createSqlDifferenceExtractor();
 	}
-	
-	
+
+
 	@Override
 	public Schema parse(String path) {
 		return parser.parse(path);
@@ -37,7 +37,7 @@ public class HecateManager implements HecateAPI{
 	@Override
 	public void export(DiffResult diffResult, Transitions transitions,
 			String operation) {
-		
+
 		if(operation.equals("metrics")){
 			exportManager.exportMetrics(diffResult);
 		}
@@ -51,6 +51,10 @@ public class HecateManager implements HecateAPI{
 		else if(operation.equals("transitions")){
 			exportManager.exportTransitionChanges(transitions, diffResult);
 		}
+		else if(operation.equals("heartbeat")){
+			exportManager.exportSchemaHeartbeatFile();
+		}
+
 		else{
 			try {
 				throw new Exception("Wrong Operation Type! Please choose one of "
@@ -59,7 +63,7 @@ public class HecateManager implements HecateAPI{
 				e.printStackTrace();
 			}
 		}
-		
+
 	}
 
 	@Override

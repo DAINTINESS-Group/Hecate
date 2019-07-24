@@ -1,4 +1,4 @@
-package gr.uoi.cs.daintiness.hecate.output;
+package gr.uoi.cs.daintiness.hecate.output.heartbeatExports;
 import gr.uoi.cs.daintiness.hecate.sql.Attribute;
 import gr.uoi.cs.daintiness.hecate.transitions.AtomicChange;
 import gr.uoi.cs.daintiness.hecate.transitions.Deletion;
