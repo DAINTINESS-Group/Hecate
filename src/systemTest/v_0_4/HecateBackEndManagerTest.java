@@ -81,10 +81,16 @@ public class HecateBackEndManagerTest {
 		refFile = new File(referenceResultPath + File.separator + "tables_DetailedStats.tsv");
 		resFile = new File(newResultDirPath + File.separator + "tables_DetailedStats.tsv");
 		localComparison = FileUtils.contentEquals(refFile, resFile);
-		System.out.println("Identical table_stats.csv?: " + localComparison + " for:\n\t" + refFile.getAbsolutePath() + "\n\t" +resFile.getAbsolutePath() + "\n");
+		System.out.println("Identical tableDetailedStats.tsv?: " + localComparison + " for:\n\t" + refFile.getAbsolutePath() + "\n\t" +resFile.getAbsolutePath() + "\n");
 		pairwiseFileComparison = Boolean.logicalAnd(pairwiseFileComparison, localComparison);
 
-		
+
+		refFile = new File(referenceResultPath + File.separator + "SchemaHeartbeat.tsv");
+		resFile = new File(newResultDirPath + File.separator + "SchemaHeartbeat.tsv");
+		localComparison = FileUtils.contentEquals(refFile, resFile);
+		System.out.println("Identical SchemaHeartbeat.tsv?: " + localComparison + " for:\n\t" + refFile.getAbsolutePath() + "\n\t" +resFile.getAbsolutePath() + "\n");
+		pairwiseFileComparison = Boolean.logicalAnd(pairwiseFileComparison, localComparison);
+
 		assertEquals(pairwiseFileComparison, true);
 
 	}//end testHandleFolderWithSchemaHistory()

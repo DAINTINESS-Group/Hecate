@@ -126,6 +126,9 @@ public class HecateBackEndEngine implements IHecateBackEndEngine {
 	 * @param list the sorted list of file names of the folders (sort order should be isomorphic to date order)
 	 */
 	public void exportOutputFilesAndCleanUp(String path,String[] list){
+		
+		hecateApi.export(res,transitions, "heartbeat");
+		
 		try {
 			//System.out.println("HecateBckEngine#exportOutputNCleanUp(): tablesInfo #tables " + res.getTableInfo().getTables().size());
 			//System.out.println("HecateBckEngine#exportOutputNCleanUp(): tablesInfo #versions " + res.getTableInfo().getNumVersions());
@@ -135,7 +138,7 @@ public class HecateBackEndEngine implements IHecateBackEndEngine {
 			e.printStackTrace();
 		}
 		hecateApi.export(res,transitions, "transitions");
-		hecateApi.export(res,transitions, "heartbeat");
+		
 		
 		resetNewNOldSchemasPostFolderExport(path, list);
 		
