@@ -142,6 +142,97 @@ public class HeartbeatRecord {
 		return outputHeaderLine;
 	}
 	
+	public Integer getTrID() {
+		return trID;
+	}
+	public long getEpochTime() {
+		return epochTime;
+	}
+	public Boolean getHasTimeInfoInEpoch() {
+		return hasTimeInfoInEpoch;
+	}
+	public String getOldVer() {
+		return oldVer;
+	}
+	public String getNewVer() {
+		return newVer;
+	}
+	public Integer getNumOldTables() {
+		return numOldTables;
+	}
+	public Integer getNumNewTables() {
+		return numNewTables;
+	}
+	public Integer getNumOldAttributes() {
+		return numOldAttributes;
+	}
+	public Integer getNumNewAttributes() {
+		return numNewAttributes;
+	}
+	public Integer getTablesAdded() {
+		return tablesAdded;
+	}
+	public Integer getTablesDeleted() {
+		return tablesDeleted;
+	}
+	public Integer getAttrBornWTableBirth() {
+		return attrBornWTableBirth;
+	}
+	public Integer getAttrDeletedWTableDeath() {
+		return attrDeletedWTableDeath;
+	}
+	public Integer getAttributesInjected() {
+		return attributesInjected;
+	}
+	public Integer getAttributesEjected() {
+		return attributesEjected;
+	}
+	public Integer getAttributesWithTypeUpd() {
+		return attributesWithTypeUpd;
+	}
+	public Integer getAttributesAtPrimaryKeyUpd() {
+		return attributesAtPrimaryKeyUpd;
+	}
+	public Integer getTableDelta() {
+		return tableDelta;
+	}
+	public Integer getAttrDelta() {
+		return attrDelta;
+	}
+	public Integer getAttrBirths() {
+		return attrBirths;
+	}
+	public Integer getAttrDeaths() {
+		return attrDeaths;
+	}
+	public Integer getAttrUpds() {
+		return attrUpds;
+	}
+	public Integer getAttrExpansion() {
+		return attrExpansion;
+	}
+	public Integer getAttrMaintenance() {
+		return attrMaintenance;
+	}
+	public Integer getTotalAttrActivity() {
+		return totalAttrActivity;
+	}
+	public String getHumanTime() {
+		return humanTime;
+	}
+	public Integer getDistFromV0Days() {
+		return distFromV0Days;
+	}
+	public Integer getRunnningMonthFromV0() {
+		return runnningMonthFromV0;
+	}
+	public Integer getRunnningYearFromV0() {
+		return runnningYearFromV0;
+	}
+	public String getEpochString() {
+		return epochString;
+	}
+
 	protected Integer trID    = null;
 	protected long epochTime  = 0;
 	protected Boolean hasTimeInfoInEpoch = true;

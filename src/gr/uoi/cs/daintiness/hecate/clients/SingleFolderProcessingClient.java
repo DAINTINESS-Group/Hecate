@@ -8,6 +8,7 @@ import java.io.File;
 import gr.uoi.cs.daintiness.hecate.hecatemanager.HecateBackEndEngineFactory;
 import gr.uoi.cs.daintiness.hecate.hecatemanager.IHecateBackEndEngine;
 
+
 /**
  * A simple client to process a folder.
  * 
@@ -32,8 +33,14 @@ public class SingleFolderProcessingClient {
 		HecateBackEndEngineFactory factory = new HecateBackEndEngineFactory();
 		IHecateBackEndEngine engine = factory.createApiExecutioner(folderOfSchemaHistory);
 		
+		System.out.println("Working with " + folderOfSchemaHistory + "\n");
+		
 		engine.handleFolderWithSchemaHistory(folderToProcess);
-		System.out.println("Done with " + folderOfSchemaHistory);
+
+		System.out.println("\nSUCCESSFUL END: Done with " + folderOfSchemaHistory + "\n" +
+			"********************************************************************************* \n\n");
+		
+
 	}
 
 }

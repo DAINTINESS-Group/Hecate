@@ -1,6 +1,9 @@
 package gr.uoi.cs.daintiness.hecate.output.tableExports;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import gr.uoi.cs.daintiness.hecate.output.heartbeatExports.HeartbeatRecord;
 /**
  * This Factory class generates the creators of the stats files for the tables of the schema under investigation
  * 
@@ -45,8 +48,8 @@ public class TableMetricsExporterFactory {
 		return new TableStatsExporter(path, versions);
 	}
 
-	public TableMetricsExporter createDetailedTableStatsExporter(String path,int versions) {
-		return new TableDetailedStatsExporter(path, versions);
+	public TableMetricsExporter createDetailedTableStatsExporter(String path,int versions, HashMap<Integer, HeartbeatRecord> transitionsHM) {
+		return new TableDetailedStatsExporter(path, versions, transitionsHM);
 	}
 
 	/**
@@ -57,7 +60,7 @@ public class TableMetricsExporterFactory {
 	 * @param versions a int with the number of versions in the history of the schema
 	 * @return an ArraList of materializations of the abstract class TableMetrics Exporter
 	 */
-	public ArrayList<TableMetricsExporter> createExporters(String path, int versions) {
+	public ArrayList<TableMetricsExporter> createExporters(String path, int versions, HashMap<Integer, HeartbeatRecord> transitionsHM) {
 		ArrayList<TableMetricsExporter> tableMetricsExporters = new ArrayList<TableMetricsExporter>();
 		tableMetricsExporters.add(createTableAllExporter(path));
 		tableMetricsExporters.add(createTableDeletionExporter(path));
@@ -66,7 +69,7 @@ public class TableMetricsExporterFactory {
 		tableMetricsExporters.add(createTableTypeChangeExporter(path));
 		tableMetricsExporters.add(createTableSizeExporter(path));
 		tableMetricsExporters.add(createTableStatsExporter(path,versions));
-		tableMetricsExporters.add(createDetailedTableStatsExporter(path,versions));
+		tableMetricsExporters.add(createDetailedTableStatsExporter(path,versions, transitionsHM));
 
 		return tableMetricsExporters;
 	}

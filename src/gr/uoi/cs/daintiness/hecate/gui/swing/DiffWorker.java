@@ -49,7 +49,7 @@ public class DiffWorker extends SwingWorker<Void, Void> {
 		this.mainPanel = mp;
 		this.folderOfSchemaHistory = folder;
 		
-		System.out.println(this.folderOfSchemaHistory.getAbsolutePath());
+		System.out.println("Working at: " + this.folderOfSchemaHistory.getAbsolutePath());
 	
 		//apiExecutioner = new HecateBackEndEngine(this.folderOfSchemaHistory.getAbsolutePath());
 		HecateBackEndEngineFactory engineFactory = new HecateBackEndEngineFactory(); 

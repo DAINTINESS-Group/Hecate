@@ -11,12 +11,13 @@ import java.io.PrintWriter;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
-
+import java.util.HashMap;
 
 import gr.uoi.cs.daintiness.hecate.diff.DiffResult;
 import gr.uoi.cs.daintiness.hecate.metrics.tables.MetricsOverVersion;
 import gr.uoi.cs.daintiness.hecate.metrics.tables.TablesInfo;
 import gr.uoi.cs.daintiness.hecate.output.heartbeatExports.HeartbeatExporter;
+import gr.uoi.cs.daintiness.hecate.output.heartbeatExports.HeartbeatRecord;
 import gr.uoi.cs.daintiness.hecate.output.heartbeatExports.MetricsExporter;
 import gr.uoi.cs.daintiness.hecate.output.heartbeatExports.TransitionChangesExporteFactory;
 import gr.uoi.cs.daintiness.hecate.output.heartbeatExports.TransitionChangesExporter;
@@ -29,6 +30,7 @@ public class ExportManager implements FileExporter{
 	private ArrayList<TableMetricsExporter> tableMetricsExporters;
 	private MetricsExporter metricsExporter;
 	private HeartbeatExporter heartbeatExporter;
+	private HashMap<Integer, HeartbeatRecord> heartbeatRecords;
 	private ArrayList<TransitionChangesExporter> transitionChangesExporters;
 	private String path;
 
@@ -46,7 +48,8 @@ public class ExportManager implements FileExporter{
 			this.path = this.getDirectory();
 			metricsExporter = new MetricsExporter(this.path);
 			transitionChangesExporters = new ArrayList<TransitionChangesExporter>();
-			System.out.println("[ExportManager constructor] Working dir is: " + this.path + "\n");
+			heartbeatRecords = new HashMap<Integer, HeartbeatRecord>();
+			//System.out.println("[ExportManager constructor] Working dir is: " + this.path + "\n");
 		}
 
 	}
@@ -79,7 +82,7 @@ public class ExportManager implements FileExporter{
 	public void exportTableMetrics(int versions, TablesInfo ti){
 		if(!isPathNull()){
 			TableMetricsExporterFactory exportFactory = new TableMetricsExporterFactory();
-			tableMetricsExporters = exportFactory.createExporters(path,versions);
+			tableMetricsExporters = exportFactory.createExporters(path,versions, this.heartbeatRecords);
 
 			//TODO MUST find a way to clear the TablesInfo each time we change a data set, without closing and re-running Hecate from scratch!
 			//2019-06-13: probably did it by calling diff.clear at HacateBackEndEngine#handleFolderWithSchemaHistory
@@ -113,8 +116,11 @@ public class ExportManager implements FileExporter{
 	}
 
 
+	/**
+	 * Invokes the HeartbeatExporter to export the SchemaHeartbeat.tsv
+	 */
 	public String exportSchemaHeartbeatFile() {
-		this.heartbeatExporter = new HeartbeatExporter(this.getDirectory());
+		this.heartbeatExporter = new HeartbeatExporter(this.getDirectory(), this.heartbeatRecords);
 		return this.heartbeatExporter.exportSchemaHeartbeatFile();
 	}
 	

@@ -1,1 +1,0 @@
-package gr.uoi.cs.daintiness.hecate.clients;

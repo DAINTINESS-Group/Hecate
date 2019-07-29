@@ -1,10 +1,44 @@
 package gr.uoi.cs.daintiness.hecate.output.tableExports;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.TreeMap;
 
 import gr.uoi.cs.daintiness.hecate.metrics.tables.MetricsOverVersion;
+import gr.uoi.cs.daintiness.hecate.output.TimeConverter;
+import gr.uoi.cs.daintiness.hecate.output.heartbeatExports.HeartbeatRecord;
 
+/**
+ * Exporter for tables_DetailedStats.tsv
+ * 
+ * TODO: refactor this and the simpler tables_stats.csv
+ * What is the problem?
+ * The abstract class TableMetricsExporter is designed to produce files that
+ *  for every table (row)
+ *    for every version (column)
+ *      report on one (1) metric //e.g., sxhemaSize, #deletions, ...
+ * This, however, collapses when you want to do summary stats, as we do in the aforementioned two files.
+ * Why? Well, because these guys report on stuff, _after_ having processed the _entire_ behavior of a table.
+ * 
+ * How do we do it now?
+ * At ExportManger.exportTableMetrics()
+ * (1) we write table's name
+ * (2) we pass _all_ versions where we call this.writeChanges() which does two things
+ *     2.1 writes date info only once; we chose at table's birth (when the if is true)
+ *     2.2 counts the numVersionsAlive s.t. we can compute the other metrics later, for all versions 
+ * (3) call the this.writeLastColumn(), only once, after all versions have been iterated, to write the rest of the metrics
+ * Of course, this is a hack that works, but we need to refactor it 
+ * 
+ * How must we do it?
+ * process the entire life of the table and compute interim measures;
+ * compute stats at the end and report just once without the crazy if(you are at birthV) writeText, else for the other 543 v.'s do nothing
+ * But this probably means that must we depart from extending the (A)TableMetricsExporter and implement a new (A) class for the summaries...
+ * Have to check.
+ * 
+ * @author giskou, pvassil
+ *
+ */
 public class TableDetailedStatsExporter extends TableMetricsExporter{
 	
 	private int sumSize = 0;
@@ -13,10 +47,20 @@ public class TableDetailedStatsExporter extends TableMetricsExporter{
 	private int versions;
 	private String deathVersion = "";
 	private final String _DELIMITER = "\t";
+	private HashMap<Integer, HeartbeatRecord> transitionsHM;
+	private TreeMap<Integer, HeartbeatRecord> transitionsSorted; 
 	
-	public TableDetailedStatsExporter(String path,int versions) {
+	public TableDetailedStatsExporter(String path,int versions, HashMap<Integer, HeartbeatRecord> pTransitionsHM) {
 		super(path, "tables_DetailedStats.tsv");
 		this.versions = versions;
+		if(pTransitionsHM != null) {
+			this.transitionsHM = pTransitionsHM;
+			this.transitionsSorted = new TreeMap<Integer, HeartbeatRecord>(this.transitionsHM);
+		}
+		else {
+			this.transitionsHM = new HashMap<Integer, HeartbeatRecord>();
+			this.transitionsSorted = new TreeMap<Integer, HeartbeatRecord>();
+		}
 	}
 
 	@Override
@@ -39,8 +83,51 @@ public class TableDetailedStatsExporter extends TableMetricsExporter{
 			//(metricsOverVersion.getLastKnownVersion()==versions-1 ? "-" : metricsOverVersion.getLastKnownVersion()
 			writeText(deathVersion	+ _DELIMITER);
 			writeText(metricsOverVersion.getLastKnownVersion() + _DELIMITER);
+			
+			long schemaBirthEpoch = 0;
+			TimeConverter timeconverter = new TimeConverter();
+			long birthEpoch = transitionsSorted.get(metricsOverVersion.getBirth()).getEpochTime();
+			long lkvEpoch = transitionsSorted.get(metricsOverVersion.getLastKnownVersion()).getEpochTime();
+			schemaBirthEpoch = transitionsSorted.get(0).getEpochTime();
+			
+			if((birthEpoch == 0)||(lkvEpoch == 0)) {
+				writeText(""	+ _DELIMITER);
+				writeText(""	+ _DELIMITER);
+				writeText(""	+ _DELIMITER);
+				writeText(""	+ _DELIMITER);
+				writeText(""	+ _DELIMITER);
+//				writeText(""	+ _DELIMITER);
+//				writeText(""	+ _DELIMITER);				
+			}
+			else {
+				String birthStringHuman = timeconverter.convertEpochToHumanString(birthEpoch);
+				String lkvStringHuman = timeconverter.convertEpochToHumanString(lkvEpoch);
+
+				int yearBOffset = 0;
+				if (birthEpoch != schemaBirthEpoch) {
+					yearBOffset = 1;
+				}
+				int yearLOffset = 0;
+				if (lkvEpoch != schemaBirthEpoch) {
+					yearLOffset = 1;
+				}
+				long yearOfBirth = timeconverter.distInYearsCompleted(schemaBirthEpoch, birthEpoch) + yearBOffset;
+				long yearOfLKV = timeconverter.distInYearsCompleted(schemaBirthEpoch, lkvEpoch) + yearLOffset;
+
+				long durationInDays = timeconverter.distInDaysCompleted(birthEpoch, lkvEpoch);
+				long durationInMonths = timeconverter.distInMonthsCompleted(birthEpoch, lkvEpoch);
+				long durationInYears = timeconverter.distInYearsCompleted(birthEpoch, lkvEpoch);
+
+				writeText(birthStringHuman	+ _DELIMITER);
+				writeText(lkvStringHuman	+ _DELIMITER);
+				writeText(yearOfBirth		+ _DELIMITER);
+				writeText(yearOfLKV			+ _DELIMITER);
+				writeText(durationInDays	+ _DELIMITER);
+//				writeText(durationInMonths	+ _DELIMITER);
+//				writeText(durationInYears	+ _DELIMITER);
+			}
 		}
-		versionsAlive++;
+		versionsAlive++;		//you NEED this. @ExportManger.exportTableMetrics(), you go through all versions, and you count how many they are
 	}
 
 
@@ -121,12 +208,13 @@ public class TableDetailedStatsExporter extends TableMetricsExporter{
 	@Override
 	public void writeHeader(int versions) {
 		writeText("Table" + _DELIMITER + "Duration" + _DELIMITER + "Birth" + _DELIMITER + "Death" + _DELIMITER + "LastKnownVersion" + _DELIMITER  
+				+ "BirthDate" + _DELIMITER + "LKVDate" + _DELIMITER + "YearOfBirth" + _DELIMITER + "YearOfLKV" + _DELIMITER 
+				+ "DurationDays" + _DELIMITER //+ "DurationMonths" + _DELIMITER + "DurationYears" + _DELIMITER 
 				+ "SchemaSize@Birth" + _DELIMITER + "SchemaSize@LKV" + _DELIMITER + "SchemaSizeAvg" + _DELIMITER + "SchemaSizeResizeRatio" + _DELIMITER 
 				+ "SumUpd" + _DELIMITER + "CountVwUpd" + _DELIMITER + "ATU" + _DELIMITER + "UpdRate" + _DELIMITER +	"AvgUpdVolume" + _DELIMITER	  
 				+ "SurvivalClass" + _DELIMITER + "ActivityClass" + _DELIMITER + "LADClass"  
 				+ "\n");
 	}
-//	YoB	YoD	birthDate	lastAppearance	durationInDays	durationInYears	durInYearRange
 
 	@Override
 	public String getDelimiter() {
