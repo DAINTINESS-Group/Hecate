@@ -5,7 +5,7 @@ import gr.uoi.cs.daintiness.hecate.sql.Table;
 
 import org.netbeans.swing.outline.RowModel;
 
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.Schema;
+import com.sun.xml.bind.v2.schemagen.xmlschema.Schema;
 
 /**
  * An implementation of {@link RowModel}
