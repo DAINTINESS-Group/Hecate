@@ -16,6 +16,8 @@ public class HecateManager implements HecateAPI{
 	private SqlInputParser parser;
 	private DifferenceExtractor differenceExtractor;
 
+	private String path;
+	
 	public HecateManager(String path) {
 
 		FileExporterFactory fileExporterFactory = new FileExporterFactory();
@@ -26,12 +28,23 @@ public class HecateManager implements HecateAPI{
 
 		DifferenceExtractorFactory diffExtractor = new DifferenceExtractorFactory();
 		differenceExtractor = diffExtractor.createSqlDifferenceExtractor();
+	
+		this.path = path;
 	}
 
 
 	@Override
 	public Schema parse(String path) {
-		return parser.parse(path);
+		Schema schema = null; 
+		try {
+			schema = parser.parse(path);
+		} catch (Exception e) {
+			String s = e.toString();
+
+			System.out.println(this.path + "________Parser exception: " + "\t" + s + "\n");
+			e.printStackTrace();
+		}
+		return schema;
 	}
 
 	@Override
