@@ -458,7 +458,9 @@ public class DDLBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements DD
 	 * The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.
 	 */
-	@Override public T visitAlter_statement(@NotNull DDLParser.Alter_statementContext ctx) { return visitChildren(ctx); }
+	@Override public T visitAlter_statement(@NotNull DDLParser.Alter_statementContext ctx) {
+		return visitChildren(ctx); 
+	}
 
 	/**
 	 * {@inheritDoc}

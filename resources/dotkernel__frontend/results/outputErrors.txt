@@ -1,0 +1,45 @@
+
+File: 1491574533.sql Line: 79 Error: The keyword ',' is not allowed inside the command. [minor] Keyword: ','
+File: 1491574533.sql Line: 80 Error: The keyword ',' is not allowed inside the command. [minor] Keyword: ','
+File: 1491574533.sql Line: 93 Error: The keyword ',' is not allowed inside the command. [minor] Keyword: ','
+File: 1491574533.sql Line: 100 Error: The keyword ',' is not allowed inside the command. [minor] Keyword: ','
+File: 1491574533.sql Line: 101 Error: The keyword ',' is not allowed inside the command. [minor] Keyword: ','
+File: 1491574533.sql Line: 108 Error: The keyword ',' is not allowed inside the command. [minor] Keyword: ','
+File: 1491574533.sql Line: 109 Error: The keyword ',' is not allowed inside the command. [minor] Keyword: ','
+File: 1491574533.sql Line: 110 Error: The keyword ',' is not allowed inside the command. [minor] Keyword: ','
+File: 1491574533.sql Line: 122 Keyword: 'MODIFY'
+File: 1491574533.sql Line: 127 Keyword: 'MODIFY'
+File: 1491574533.sql Line: 132 Keyword: 'MODIFY'
+File: 1491574533.sql Line: 150 Error: The keyword ',' is not allowed inside the command. [minor] Keyword: ','
+File: 1491574533.sql Line: 78 Error: SQL ALTER command does not accept multiple ADD CONSTRAINT commands. [major] 
+File: 1491574533.sql Line: 92 Error: SQL ALTER command does not accept multiple ADD CONSTRAINT commands. [major] 
+File: 1491574533.sql Line: 99 Error: SQL ALTER command does not accept multiple ADD CONSTRAINT commands. [major] 
+File: 1491574533.sql Line: 107 Error: SQL ALTER command does not accept multiple ADD CONSTRAINT commands. [major] 
+File: 1491574533.sql Line: 121 Error: SQL ALTER command does not support keyword 'MODIFY'. [major] 
+File: 1491574533.sql Line: 126 Error: SQL ALTER command does not support keyword 'MODIFY'. [major] 
+File: 1491574533.sql Line: 131 Error: SQL ALTER command does not support keyword 'MODIFY'. [major] 
+File: 1491574533.sql Line: 149 Error: SQL ALTER command does not accept multiple ADD CONSTRAINT commands. [major] 
+File: 1493764935.sql Line: 63 Error: The keyword 'LOCK' is invalid. Keyword: 'LOCK',[minor]
+File: 1493764935.sql Line: 67 Error: The keyword 'UNLOCK' is invalid. Keyword: 'UNLOCK',[minor]
+File: 1493764935.sql Line: 63 Error: The keyword 'LOCK' is invalid. Keyword: 'LOCK',[minor]
+File: 1493764935.sql Line: 67 Error: The keyword 'UNLOCK' is invalid. Keyword: 'UNLOCK',[minor]
+File: 1491574533.sql Line: 79 Error: The keyword ',' is not allowed inside the command. [minor] Keyword: ','
+File: 1491574533.sql Line: 80 Error: The keyword ',' is not allowed inside the command. [minor] Keyword: ','
+File: 1491574533.sql Line: 93 Error: The keyword ',' is not allowed inside the command. [minor] Keyword: ','
+File: 1491574533.sql Line: 100 Error: The keyword ',' is not allowed inside the command. [minor] Keyword: ','
+File: 1491574533.sql Line: 101 Error: The keyword ',' is not allowed inside the command. [minor] Keyword: ','
+File: 1491574533.sql Line: 108 Error: The keyword ',' is not allowed inside the command. [minor] Keyword: ','
+File: 1491574533.sql Line: 109 Error: The keyword ',' is not allowed inside the command. [minor] Keyword: ','
+File: 1491574533.sql Line: 110 Error: The keyword ',' is not allowed inside the command. [minor] Keyword: ','
+File: 1491574533.sql Line: 122 Keyword: 'MODIFY'
+File: 1491574533.sql Line: 127 Keyword: 'MODIFY'
+File: 1491574533.sql Line: 132 Keyword: 'MODIFY'
+File: 1491574533.sql Line: 150 Error: The keyword ',' is not allowed inside the command. [minor] Keyword: ','
+File: 1491574533.sql Line: 78 Error: SQL ALTER command does not accept multiple ADD CONSTRAINT commands. [major] 
+File: 1491574533.sql Line: 92 Error: SQL ALTER command does not accept multiple ADD CONSTRAINT commands. [major] 
+File: 1491574533.sql Line: 99 Error: SQL ALTER command does not accept multiple ADD CONSTRAINT commands. [major] 
+File: 1491574533.sql Line: 107 Error: SQL ALTER command does not accept multiple ADD CONSTRAINT commands. [major] 
+File: 1491574533.sql Line: 121 Error: SQL ALTER command does not support keyword 'MODIFY'. [major] 
+File: 1491574533.sql Line: 126 Error: SQL ALTER command does not support keyword 'MODIFY'. [major] 
+File: 1491574533.sql Line: 131 Error: SQL ALTER command does not support keyword 'MODIFY'. [major] 
+File: 1491574533.sql Line: 149 Error: SQL ALTER command does not accept multiple ADD CONSTRAINT commands. [major] 

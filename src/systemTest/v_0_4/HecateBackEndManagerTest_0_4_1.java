@@ -16,16 +16,18 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * @author pvassil
+ * @author pvassil, savvasKost
  * @since v.1.0
  *
  */
-public class HecateBackEndManagerTest {
-
-	private static String inputDirPath = "resources/Atlas/schemata"; 
-	private static String referenceResultPath = "resources/Atlas/referenceResults_v0.4";
-	private static String newResultDirPath = "resources/Atlas/results";
+public class HecateBackEndManagerTest_0_4_1 {
  
+	
+	private static String inputDirPath = "resources/dotkernel__frontend/schemata"; 
+	private static String referenceResultPath = "resources/dotkernel__frontend/results";
+	private static String newResultDirPath = "resources/dotkernel__frontend/results";
+ 
+	
 	/**
 	 * Prepares test to run with Atlas data set. Cleans up previous results.
 	 * 
@@ -35,7 +37,8 @@ public class HecateBackEndManagerTest {
 	public static void setUpBeforeClass() throws Exception {
 		File resultDir = new File(newResultDirPath);
 		String[] oldResultFiles = resultDir.list();
-
+		
+		
 		int countDeleted = 0;
 		for(int i=0;i<oldResultFiles.length;i++) {
 			File toDel = new File(newResultDirPath + "/" + oldResultFiles[i]);

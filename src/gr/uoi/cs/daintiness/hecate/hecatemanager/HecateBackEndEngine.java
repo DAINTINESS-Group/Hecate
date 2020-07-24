@@ -6,7 +6,16 @@ import gr.uoi.cs.daintiness.hecate.sql.Schema;
 import gr.uoi.cs.daintiness.hecate.sql.Table;
 import gr.uoi.cs.daintiness.hecate.transitions.Transitions;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map.Entry;
 
 
@@ -30,6 +39,7 @@ public class HecateBackEndEngine implements IHecateBackEndEngine {
 	
 	@Override
 	public int handleSchemaPair(File oldFile,File newFile){
+		
 		hecateApi = hecateApiFactory.createHecateManager(null);
 		oldSchema = hecateApi.parse(oldFile.getAbsolutePath());
 		newSchema = hecateApi.parse(newFile.getAbsolutePath());	
@@ -46,17 +56,17 @@ public class HecateBackEndEngine implements IHecateBackEndEngine {
 			return -1;
 		if (!folderOfSchemaHistory.isDirectory())
 			return -1;
-
+		
 		//Essential to be able to work with multiple projects, one after the other.
 		res.clear();
 		res = new DiffResult();
 //		System.out.println("HecateBckEngine#handleFolder(): tablesInfo #tables " + res.getTableInfo().getTables().size());
-//		System.out.println("HecateBckEngine#handleFolder(): tablesInfo #versions " + res.getTableInfo().getNumVersions());
-
-		
+//		System.out.println("HecateBckEngine#handleFolder(): tablesInfo #versions " + res.getTableInfo().getNumVersions());		
+	
 		String path = folderOfSchemaHistory.getAbsolutePath();			
 		String[] list = folderOfSchemaHistory.list();
 		java.util.Arrays.sort(list);
+		
 		
 		for (int i = 0; i < list.length-1; i++) {
 			System.out.println("Parsing " + list[i] + " vs " + list[i+1]);
@@ -126,7 +136,6 @@ public class HecateBackEndEngine implements IHecateBackEndEngine {
 	 * @param list the sorted list of file names of the folders (sort order should be isomorphic to date order)
 	 */
 	public void exportOutputFilesAndCleanUp(String path,String[] list){
-		
 		hecateApi.export(res,transitions, "heartbeat");
 		
 		try {

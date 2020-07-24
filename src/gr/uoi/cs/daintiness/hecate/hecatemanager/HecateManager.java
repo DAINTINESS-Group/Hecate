@@ -1,5 +1,10 @@
 package gr.uoi.cs.daintiness.hecate.hecatemanager;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import gr.uoi.cs.daintiness.hecate.diff.DiffResult;
 import gr.uoi.cs.daintiness.hecate.diff.DifferenceExtractor;
 import gr.uoi.cs.daintiness.hecate.diff.DifferenceExtractorFactory;
@@ -30,6 +35,33 @@ public class HecateManager implements HecateAPI{
 		differenceExtractor = diffExtractor.createSqlDifferenceExtractor();
 	
 		this.path = path;
+		
+		// clearing the file outputErrors.txt
+		if (path!= null) {
+			File grandparent = (new File(path)).getParentFile();
+			File directory = new File(grandparent.getAbsolutePath() + File.separator + "results");
+			
+			if (directory.exists()) {
+				FileWriter fileWriter = null; 
+
+				try {
+					fileWriter = new FileWriter(grandparent.getAbsolutePath() + File.separator + "results"+File.separator+"outputErrors.txt");
+				} catch (IOException e2) {
+					e2.printStackTrace();
+				}
+			    BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+			    try {
+					bufferedWriter.write("\n");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			    try {
+			    	bufferedWriter.close();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
 	}
 
 

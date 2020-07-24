@@ -23,6 +23,11 @@ See the [copyright](copyright.md) file.
 
 ## Credits and history
 
+**v.05 [2020-07]**
+
+Improvements on parser, exception catching and error output in /results folder
+* *Savvas Kostoudas*
+
 **v.04 [2019-06]**
 
 Refactoring of back-end to have an API, client for cmd-line invocation, new stats for tables.
