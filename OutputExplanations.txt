@@ -1,0 +1,44 @@
+For Hecate to work, in each project  folder 
+-------------------------------------------------------------
+Input: schemata
+  ... go through Hecate ...
+Output: results
+
+Input: 
+a list of .sql files, each with the DDL statements of the version. 
+The names of the files must reflect their time order (ideally, the name of the file is the Unix time of its commit to github)
+
+Output:
+You can find several files inside results
+
+/* A. Detailed reporting on changes */
+- transitions.xml: the xml-encoded version of the following 
+- transitions.csv: for each transition, for each table affected, for each attribute affected, what was the change
+
+Explanations
+----------------------
+Insertion: New table => attr born with new table
+Insertion: Update table => attr injected to existing  table
+Deletion: DeleteTable => attr dies with dying table
+Deletion: Update table => attr ejected from existing  table
+Update: TypeChange => data type of attr changes
+Update: KeyChange => attr involved in primary key that changes
+
+
+/* B. Summaries of changes. These two  tell us cumulative stats for (a) tables and (b) transitions */
+- tablesDetailedStats.tsv: for each table, cumulative stats
+- SchemaHeartbeat.tsv: for each transition, cumulative stats
+// you can also find their old versions, metrics.csv and tables_stats.csv
+
+/* C. super detailed stats. Per type of change, per table, per transition */
+_perVersion*.csv: One file per type of change. Per table (row), per transition (column) how many attributed where changed.
+The only possibly unclear: ConcatAllMetrics.csv
+For example, if for a certain table, for a certain transition, the cell is
+     7[0|0|0|0] 
+it means that this table, at this transition had 7 attributes@schema [0 attr's inserted | 0 attr's deleted | 0 attr's with attrTypeChange | 0 attr's with keyChange]
+		---
+		writeText(metricsOverVersion.getSize(i) + "[" + c.toString() + "]" + ";");
+		---
+		return this.insertions + "|" + this.deletions + "|" +
+		       this.attributeTypeChange + "|" + this.keyChange
+
